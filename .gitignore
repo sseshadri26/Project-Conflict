@@ -39,3 +39,6 @@ sysinfo.txt
 
 # Shader Logs
 *.log
+
+# IDE Stuffs
+.vscode/
