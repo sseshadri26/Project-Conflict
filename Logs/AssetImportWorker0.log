@@ -148,3 +148,4 @@ Received Import Request.
 Start importing Assets/Scenes/Eileen.unity using Guid(3de0f8c60ff68f447af0dc5ea194c2be) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '70c61883867471165b10eaa4ebf8a269') in 0.071256 seconds 
   Import took 0.081156 seconds .
 
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file
