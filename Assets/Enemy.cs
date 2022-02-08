@@ -15,6 +15,9 @@ public class Enemy : MonoBehaviour
     public Transform playerOneTrfm;
     public Transform playerTwoTrfm;
 
+    public GameObject lightingBolt;
+
+    Rigidbody2D rb;
     Transform trfm;
 
 
@@ -22,6 +25,7 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         trfm = transform;
+        rb = GetComponent<Rigidbody2D>();
     }
 
 
@@ -40,8 +44,10 @@ public class Enemy : MonoBehaviour
             //target player two
             trfm.rotation = Quaternion.AngleAxis(Mathf.Atan2(trfm.position.y - playerTwoTrfm.position.y, trfm.position.x - playerTwoTrfm.position.x) * Mathf.Rad2Deg + 90, Vector3.forward);
         }
-        trfm.position += trfm.up * speed;
+        //trfm.position += trfm.up * speed;
+        rb.velocity = trfm.up*speed;
         //trfm.position += trfm.right * .05f;
+
 
 
 
@@ -51,7 +57,11 @@ public class Enemy : MonoBehaviour
         } else
         {
             //teleport the enemy forward
-            trfm.position += trfm.up * 5; //dont run 50x per sec
+            //trfm.position += trfm.up * 5; //dont run 50x per sec
+
+            //shoot
+            //parameters: 1: object to create, 2: position to crate at, 3: rotation of the new object
+            Instantiate(lightingBolt, trfm.position, trfm.rotation);
 
             //reset the ability timer (100 ticks = 2 secs)
             abilityTmr = 100;
