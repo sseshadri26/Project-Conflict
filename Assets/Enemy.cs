@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
 
     [SerializeField]
     private int health;
+    [SerializeField]
     private float speed;
 
     int abilityTmr;
@@ -49,13 +50,30 @@ public class Enemy : MonoBehaviour
             abilityTmr--;
         } else
         {
+            //teleport the enemy forward
             trfm.position += trfm.up * 5; //dont run 50x per sec
 
+            //reset the ability timer (100 ticks = 2 secs)
             abilityTmr = 100;
         }
     }
 
 
-    
-    
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        //equivalent of cout
+        Debug.Log(collision.name);
+
+        //if u touch player, player loese 10 hp
+
+
+
+        //
+        //store ur current rotation
+        //rotate to face collision
+        //trfm.right * 1;
+        //rotate back to ur old rotation
+    }
+
+
 }
