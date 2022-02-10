@@ -17,7 +17,6 @@ public class thunderboltBullet : MonoBehaviour
 
     private void FixedUpdate()
     {
-        
         trfm.position += trfm.up * spd;
     }
 
