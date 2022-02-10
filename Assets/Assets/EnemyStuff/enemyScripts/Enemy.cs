@@ -159,21 +159,7 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.name == "playerOne" || collision.name == "playerTwo")
-        {
-            takeKnockback(0.7f, collision.transform.position);
-        }
-        //equivalent of cout
 
-        //if u touch player, player loese 10 hp
-
-
-
-        //
-        //store ur current rotation
-        //rotate to face collision
-        //trfm.right * 1;
-        //rotate back to ur old rotation
     }
 
 
