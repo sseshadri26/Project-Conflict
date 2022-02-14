@@ -5,6 +5,9 @@
 [Bb]uilds/
 Assets/AssetStoreTools*
 
+#ignore for macs
+**/.DS_Store
+
 # Visual Studio cache directory
 .vs/
 
@@ -35,6 +38,10 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
-Logs/shadercompiler-UnityShaderCompiler.exe0.log
-Logs/shadercompiler-UnityShaderCompiler.exe1.log
-Logs/shadercompiler-UnityShaderCompiler.exe2.log
+
+
+# Shader Logs
+*.log
+
+# IDE Stuffs
+.vscode/
