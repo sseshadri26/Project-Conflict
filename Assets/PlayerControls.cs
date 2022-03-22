@@ -12,6 +12,8 @@ public class PlayerControls : MonoBehaviour
 
     private Vector2 moveDirection;
 
+    private Vector2 faceDirection;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -25,11 +27,17 @@ public class PlayerControls : MonoBehaviour
     void FixedUpdate()
     {
         Move();
+        Turn();
     }
 
     public void OnMove(InputAction.CallbackContext context)
     {
         moveDirection = context.ReadValue<Vector2>();
+    }
+
+    public void OnFaceDirection(InputAction.CallbackContext context)
+    {
+        faceDirection = context.ReadValue<Vector2>();
     }
 
     // void ProcessInputs()
@@ -43,5 +51,11 @@ public class PlayerControls : MonoBehaviour
         rb.velocity =
             new Vector2(moveDirection.x * moveSpeed,
                 moveDirection.y * moveSpeed);
+    }
+
+    //turn the player in the direction of the Vector2 faceDirection
+    void Turn()
+    {
+        // this.transform.LookAt(faceDirection);
     }
 }
