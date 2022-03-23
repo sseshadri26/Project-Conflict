@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
     private static Transform playerOneTrfm, playerTwoTrfm;
     [SerializeField] protected Transform targetPlayerTrfm;
     [SerializeField] protected bool hasTargetPlayer = false;
+    [SerializeField] GameObject deathFX;
     protected int abilityCooldown, abilityCast, stunTmr;
 
     int walkTmr, walkThreshold, turnTmr;
@@ -17,7 +18,7 @@ public class Enemy : MonoBehaviour
 
     protected const bool p1 = false, p2 = true;
     protected bool targetedPlayer = p1;
-
+    
     protected Rigidbody2D rb;
     protected Transform trfm;
 
@@ -157,9 +158,12 @@ public class Enemy : MonoBehaviour
     }
 
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D col)
     {
+        if (col.gameObject.tag == "fork")
+        {
 
+        }
     }
 
 
