@@ -58,4 +58,9 @@ public class PlayerControls : MonoBehaviour
     {
         // this.transform.LookAt(faceDirection);
     }
+
+    void OnCollisionEnter(Collision collision) {
+        Debug.Log("hit");
+        rb.velocity = new Vector2(0,0);
+    }
 }
