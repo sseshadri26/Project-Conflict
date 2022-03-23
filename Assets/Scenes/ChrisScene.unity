@@ -130,6 +130,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3336040056114772105, guid: 578592e729bcfc940a44551233eb4060, type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnMove
+      objectReference: {fileID: 0}
     - target: {fileID: 3336040056114772116, guid: 578592e729bcfc940a44551233eb4060, type: 3}
       propertyPath: m_Name
       value: PlayerTemp
