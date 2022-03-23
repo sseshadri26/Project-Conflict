@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7203847031420233300}
   - component: {fileID: 2408089620000739258}
-  m_Layer: 31
+  m_Layer: 6
   m_Name: Street Foreground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 1099532542738400136}
   - component: {fileID: 1412578632711877180}
   - component: {fileID: 6475784570686777521}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Layer1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
