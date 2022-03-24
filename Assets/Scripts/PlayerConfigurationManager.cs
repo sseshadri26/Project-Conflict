@@ -32,14 +32,16 @@ public class PlayerConfigurationManager : MonoBehaviour
     }
 
     // SetPlayerColor takes in a player index and a color and sets the player's color to the color
-    public void SetPlayerColor(int playerIndex, Material color)
-    {
-        playerConfigurations[playerIndex].PlayerMaterial = color;
-    }
-
+    // public void SetPlayerColor(int playerIndex, Material color)
+    // {
+    //     playerConfigurations[playerIndex].PlayerMaterial = color;
+    // }
     // ReadyPlayer takes in a player index and sets the player's ready status to true
     public void ReadyPlayer(int playerIndex)
     {
+        //print that Player playerindex is ready
+        Debug.Log("Player " + playerIndex + " is ready");
+
         playerConfigurations[playerIndex].isReady = true;
 
         //if all player have joined and all are ready, start the game
@@ -54,6 +56,12 @@ public class PlayerConfigurationManager : MonoBehaviour
         }
     }
 
+    //DisconnectPlayer removes a player from playerConfigurations given the playerIndex
+    public void DisconnectPlayer(int playerIndex)
+    {
+        playerConfigurations.RemoveAt (playerIndex);
+    }
+
     //HandlePlayerJoin takes in playerinput pi. adds pi to the list of players
     public void HandlePlayerJoin(PlayerInput pi)
     {
@@ -65,6 +73,7 @@ public class PlayerConfigurationManager : MonoBehaviour
             //the player is now a child of this object
             pi.transform.SetParent (transform);
             playerConfigurations.Add(new PlayerConfiguration(pi));
+            // pi.SwitchCurrentActionMap("UI");
         }
         else
         {
@@ -94,5 +103,5 @@ public class PlayerConfiguration
 
     public bool isReady { get; set; }
 
-    public Material PlayerMaterial { get; set; }
+    // public Material PlayerMaterial { get; set; }
 }
