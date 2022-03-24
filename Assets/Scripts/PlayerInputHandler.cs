@@ -10,14 +10,14 @@ public class PlayerInputHandler : MonoBehaviour
 {
     private PlayerConfiguration playerConfig;
 
-    private Mover mover;
+    private CharacterMover mover;
 
-    private PlayerControls controls;
+    private ProjectConflictControls controls;
 
     private void Awake()
     {
-        mover = GetComponent<Mover>();
-        controls = new PlayerControls();
+        mover = GetComponent<CharacterMover>();
+        controls = new ProjectConflictControls();
     }
 
     public void InitializePlayer(PlayerConfiguration config)
@@ -28,10 +28,10 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void Input_onActionTriggered(CallbackContext obj)
     {
-        // if (obj.action.name == controls.ProjectConflictControls.Move.name)
-        // {
-        //     OnMove (obj);
-        // }
+        if (obj.action.name == controls.Player.Move.name)
+        {
+            OnMove (obj);
+        }
     }
 
     public void OnMove(CallbackContext context)

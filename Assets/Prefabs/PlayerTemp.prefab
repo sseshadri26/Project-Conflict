@@ -55,7 +55,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: eb6f6fa88c893f24a9e956ad61988b63, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -223,6 +223,7 @@ MonoBehaviour:
   isP1: 0
   m_weapon: {fileID: 0}
   attachPoint: {fileID: 3733961547691428553}
+  m_camera: {fileID: 0}
 --- !u!61 &714677047494085491
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -233,13 +234,13 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.5592201}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0}
     oldSize: {x: 2.25, y: 2.25}
     newSize: {x: 2.25, y: 2.25}
     adaptiveTilingThreshold: 0.5
@@ -247,7 +248,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.25, y: 2.25}
+  m_Size: {x: 2.25, y: 1.125}
   m_EdgeRadius: 0
 --- !u!1 &5743318556331441185
 GameObject:
