@@ -82,7 +82,7 @@ public class PlayerConfigurationManager : MonoBehaviour
         }
     }
 
-    public List<PlayerConfiguration> GetPlayerConfigs()
+    public List<PlayerConfiguration> GetPlayerConfigurations()
     {
         return playerConfigurations;
     }
