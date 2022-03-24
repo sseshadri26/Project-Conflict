@@ -10,28 +10,38 @@ public class PlayerControls : MonoBehaviour
 
     private Rigidbody2D rb;
 
-    private Rigidbody2D rb2;
-
     private Vector2 moveDirection;
 
     private Vector2 faceDirection;
 
-    //Vikram
-    GameObject parent;
+    [SerializeField]
+    bool
 
-    [SerializeField] bool weaponEquipped, isP1;
-    [SerializeField] weapon m_weapon;
-    [SerializeField] Transform attachPoint;
-    [SerializeField] Camera m_camera;
+            weaponEquipped,
+            isP1;
 
-    public bool IsP1() { return isP1; }
-    public Transform GetAttachPoint() { return attachPoint; }
+    [SerializeField]
+    weapon m_weapon;
+
+    [SerializeField]
+    Transform attachPoint;
+
+    [SerializeField]
+    Camera m_camera;
+
+    public bool IsP1()
+    {
+        return isP1;
+    }
+
+    public Transform GetAttachPoint()
+    {
+        return attachPoint;
+    }
 
     private void Awake()
     {
-        parent = GameObject.Find("ParentForRotation");
         rb = GetComponent<Rigidbody2D>();
-        rb2 = parent.GetComponent<Rigidbody2D>(); 
     }
 
     // Update is called once per frame
@@ -44,13 +54,16 @@ public class PlayerControls : MonoBehaviour
         Move();
         Turn();
     }
+
     public void OnMove(InputAction.CallbackContext context)
     {
         moveDirection = context.ReadValue<Vector2>();
     }
 
     bool modifierPressed;
+
     bool buttonDown = false;
+
     public void OnFire(InputAction.CallbackContext context)
     {
         modifierPressed = context.performed;
@@ -65,7 +78,8 @@ public class PlayerControls : MonoBehaviour
                     weaponEquipped = !m_weapon.Throw();
                 }
             }
-        } else
+        }
+        else
         {
             buttonDown = false;
         }
@@ -81,17 +95,20 @@ public class PlayerControls : MonoBehaviour
         }
         else if (playerInput.currentControlScheme == "Keyboard&Mouse")
         {
-            //get a vector from the parent's origin to the mouse's 
+            //get a vector from the parent's origin to the mouse's
             Camera cam = Camera.main;
             Vector2 tempVector = context.ReadValue<Vector2>();
-            Vector3 cursorPosition = cam.ScreenToWorldPoint(new Vector3(tempVector.x, tempVector.y, 1));
-            Vector3 currentPosition = parent.transform.position;
+            Vector3 cursorPosition =
+                cam
+                    .ScreenToWorldPoint(new Vector3(tempVector.x,
+                        tempVector.y,
+                        1));
+            Vector3 currentPosition = this.transform.position;
             faceDirection = cursorPosition - currentPosition;
         }
 
         //print("test");
         //print(faceDirection);
-        
     }
 
     // void ProcessInputs()
@@ -105,21 +122,20 @@ public class PlayerControls : MonoBehaviour
         rb.velocity =
             new Vector2(moveDirection.x * moveSpeed,
                 moveDirection.y * moveSpeed);
-        rb2.velocity = rb.velocity;
     }
 
     //turn the player in the direction of the Vector2 faceDirection
     void Turn()
     {
         //this.transform.LookAt(faceDirection);
-
         /*Added by Vikram*/
-       
         float angle;
         if (faceDirection.x != 0)
             angle = Mathf.Atan(faceDirection.y / faceDirection.x);
-        else angle = 0;
+        else
+            angle = 0;
         angle *= Mathf.Rad2Deg;
+
         //1st or 3rd quadrant
         if (angle > 0)
         {
@@ -129,21 +145,21 @@ public class PlayerControls : MonoBehaviour
                 angle += 180;
             }
         }
-        //2nd or 4th quadrant
         else
+        //2nd or 4th quadrant
         {
             //2nd quadrant
             if (faceDirection.x < 0)
             {
                 angle += 180;
             }
-            //4th quadrant
             else
+            //4th quadrant
             {
                 angle += 360;
             }
         }
-        parent.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        this.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
     }
 
     private void OnTriggerEnter2D(Collider2D col)
