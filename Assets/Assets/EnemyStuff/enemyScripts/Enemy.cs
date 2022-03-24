@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Pathfinding;
 
 public class Enemy : MonoBehaviour
 {
 
     [SerializeField] protected int health;
-    [SerializeField] protected float speed;
+    [SerializeField] protected float speed = 0.05f;
     private static Transform playerOneTrfm, playerTwoTrfm;
     [SerializeField] protected Transform targetPlayerTrfm;
     [SerializeField] protected bool hasTargetPlayer = false;
@@ -27,11 +28,32 @@ public class Enemy : MonoBehaviour
 
     private bool every2;
 
+    // Pathfinding variables
+    private float nextWaypointDistance = .5f;
+    private Path path;
+    private int currentWaypoint = 0;
+    private bool reachedEndOfPath = false;
+    private Seeker seeker;
+
     // Start is called before the first frame update
     protected void EnemyStart()
     {
         trfm = transform;
         rb = GetComponent<Rigidbody2D>();
+        seeker = GetComponent<Seeker>();
+
+        InvokeRepeating("UpdatePath", 0f, 0.5f);
+    }
+
+    public void UpdatePath() {
+        if (targetPlayerTrfm != null && seeker.IsDone()) 
+            seeker.StartPath(rb.position, targetPlayerTrfm.position, OnPathComplete);
+    }
+
+    protected void OnPathComplete(Path p) {
+        if (!p.error) {
+            path = p;
+        }
     }
 
     protected void EnemyFixedUpdate()
@@ -46,17 +68,39 @@ public class Enemy : MonoBehaviour
         if (!hasTargetPlayer)
         {
             idleRoam();
+        } else {
+            moveToPlayer();
         }
         if (stunTmr>0) { stunTmr--; }
         doKnockback();
+    }
+
+    protected void moveToPlayer() {
+        if (path == null)
+            return;
+        
+        // End of path reached?
+        if(currentWaypoint >= path.vectorPath.Count) {
+            reachedEndOfPath = true;
+            return;
+        } else {
+            reachedEndOfPath = false;
+        }
+
+        // Move & turn enemy
+        trfm.up = ((Vector2)(path.vectorPath[currentWaypoint] - trfm.position)).normalized;
+        moveForward(speed);
+        // Pick next waypoint
+        float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
+        if (distance < nextWaypointDistance) {
+            currentWaypoint++;
+        }
     }
 
     void determineTargetPlayer()
     {
         if (hasTargetPlayer)
         {
-            trfm.rotation = Quaternion.AngleAxis(Mathf.Atan2(trfm.position.y - targetPlayerTrfm.position.y, trfm.position.x - targetPlayerTrfm.position.x) * Mathf.Rad2Deg + 90, Vector3.forward);
-
             if (targetedPlayer == p2)
             {
                 if (!Physics2D.Linecast(trfm.position, playerOneTrfm.position, 1 << 6))
@@ -70,8 +114,8 @@ public class Enemy : MonoBehaviour
                 }
                 if (Physics2D.Linecast(trfm.position, playerTwoTrfm.position, 1 << 6))
                 {
-                    hasTargetPlayer = false;
-                    targetPlayerTrfm = null;
+                    //hasTargetPlayer = false;
+                    //targetPlayerTrfm = null;
                 }
             }
             else
@@ -87,8 +131,8 @@ public class Enemy : MonoBehaviour
                 }
                 if (Physics2D.Linecast(trfm.position, playerOneTrfm.position, 1 << 6))
                 {
-                    hasTargetPlayer = false;
-                    targetPlayerTrfm = null;
+                    //hasTargetPlayer = false;
+                    //targetPlayerTrfm = null;
                 }
             }
 
