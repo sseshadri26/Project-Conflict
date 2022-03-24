@@ -44,7 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f54fe56ba654e94a87e6e30580e67f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxPlayers: 2
 --- !u!114 &7135117571650088300
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58,7 +57,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_NotificationBehavior: 2
-  m_MaxPlayerCount: -1
+  m_MaxPlayerCount: 2
   m_AllowJoining: 1
   m_JoinBehavior: 0
   m_PlayerJoinedEvent:
