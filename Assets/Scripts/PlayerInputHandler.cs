@@ -28,10 +28,10 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void Input_onActionTriggered(CallbackContext obj)
     {
-        if (obj.action.name == controls.ProjectConflictControls.Move.name)
-        {
-            OnMove (obj);
-        }
+        // if (obj.action.name == controls.ProjectConflictControls.Move.name)
+        // {
+        //     OnMove (obj);
+        // }
     }
 
     public void OnMove(CallbackContext context)
