@@ -153,5 +153,7 @@ public class PlayerControls : MonoBehaviour
         {
             weaponEquipped = m_weapon.PickUp(this);
         }
+
+        Debug.Log($"touched {col.name}");
     }
 }
