@@ -17,7 +17,7 @@ public class slashingEnemy : meleeEnemy
         EnemyFixedUpdate();
         if (stunTmr < 1 && hasTargetPlayer)
         {
-            moveForward(speed);
+            // moveForward(speed);
             doAbilityCycle();
         }
         doCastAnimation();
