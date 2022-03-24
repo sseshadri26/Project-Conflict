@@ -58,6 +58,7 @@ public class PlayerControls : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         moveDirection = context.ReadValue<Vector2>();
+        faceDirection = moveDirection;
     }
 
     bool modifierPressed;
