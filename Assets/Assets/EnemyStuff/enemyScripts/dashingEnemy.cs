@@ -15,7 +15,7 @@ public class dashingEnemy : meleeEnemy
         EnemyFixedUpdate();
         if (stunTmr < 1 && hasTargetPlayer)
         {
-            moveForward(speed);
+            moveToPlayer(speed);
             doAbilityCycle();
         }
         doAbilityCast();
@@ -25,7 +25,7 @@ public class dashingEnemy : meleeEnemy
     {
         if (abilityCast > 0)
         {
-            moveForward(speed * 5);
+            moveToPlayer(speed * 5);
             abilityCast--;
             if (abilityCast == 0) { attackObj.SetActive(false); }
         }

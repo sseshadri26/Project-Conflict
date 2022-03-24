@@ -19,7 +19,7 @@ public class rangedEnemy : Enemy
         if (stunTmr < 1 && hasTargetPlayer)
         {
             doAbilityCycle();
-            moveForward(speed);
+            moveToPlayer(speed);
         }
     }
 

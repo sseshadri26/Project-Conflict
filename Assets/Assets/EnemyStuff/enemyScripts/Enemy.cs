@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] protected int health;
     [SerializeField] protected float speed = 0.05f;
+    [SerializeField] protected float rotationSpeed = 7f;
     private static Transform playerOneTrfm, playerTwoTrfm;
     [SerializeField] protected Transform targetPlayerTrfm;
     [SerializeField] protected bool hasTargetPlayer = false;
@@ -29,11 +30,15 @@ public class Enemy : MonoBehaviour
     private bool every2;
 
     // Pathfinding variables
+    [SerializeField] protected float inRangeOfPlayer = 1f;    // How far from player should enemy stop?
     private float nextWaypointDistance = .5f;
     private Path path;
     private int currentWaypoint = 0;
     private bool reachedEndOfPath = false;
     private Seeker seeker;
+    // Path rememberance variables
+    [SerializeField] protected float memoryTime = 10f;      // How long should enemy remember and chase player?
+    private bool coroutineRunning = false;
 
     // Start is called before the first frame update
     protected void EnemyStart()
@@ -42,14 +47,22 @@ public class Enemy : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         seeker = GetComponent<Seeker>();
 
-        InvokeRepeating("UpdatePath", 0f, 0.5f);
+        // InvokeRepeating("UpdatePath", 0f, 0.5f);
     }
 
+    // Start calculating enemy's path to player
     public void UpdatePath() {
-        if (targetPlayerTrfm != null && seeker.IsDone()) 
-            seeker.StartPath(rb.position, targetPlayerTrfm.position, OnPathComplete);
+         //only run this code every other tick to save resources
+        if (every2)
+        {
+            determineTargetPlayer();
+            if (targetPlayerTrfm != null && seeker.IsDone()) 
+                seeker.StartPath(rb.position, targetPlayerTrfm.position, OnPathComplete);
+        }
+        every2 = !every2;
     }
 
+    // Set enemy's path when done calculating
     protected void OnPathComplete(Path p) {
         if (!p.error) {
             path = p;
@@ -58,38 +71,32 @@ public class Enemy : MonoBehaviour
 
     protected void EnemyFixedUpdate()
     {
-        //only run this code every other tick to save resources
-        if (every2)
-        {
-            determineTargetPlayer();
-        }
-        every2 = !every2;
-
+        UpdatePath();
         if (!hasTargetPlayer)
         {
             idleRoam();
-        } else {
-            moveToPlayer();
         }
         if (stunTmr>0) { stunTmr--; }
         doKnockback();
     }
 
-    protected void moveToPlayer() {
+    protected void moveToPlayer(float thisSpeed) {
         if (path == null)
             return;
         
-        // End of path reached?
-        if(currentWaypoint >= path.vectorPath.Count) {
+        // Reached player?
+        if(path.GetTotalLength() < inRangeOfPlayer) {
             reachedEndOfPath = true;
+            trfm.up = Vector2.Lerp(trfm.up, ((Vector2)(targetPlayerTrfm.position - trfm.position)).normalized, Time.deltaTime * rotationSpeed);
             return;
         } else {
             reachedEndOfPath = false;
         }
 
-        // Move & turn enemy
-        trfm.up = ((Vector2)(path.vectorPath[currentWaypoint] - trfm.position)).normalized;
-        moveForward(speed);
+        // Rotate enemy
+        trfm.up = Vector2.Lerp(trfm.up, ((Vector2)(path.vectorPath[currentWaypoint] - trfm.position)).normalized, Time.deltaTime * rotationSpeed);
+        // Move enemy
+        moveForward(thisSpeed);
         // Pick next waypoint
         float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
         if (distance < nextWaypointDistance) {
@@ -111,11 +118,19 @@ public class Enemy : MonoBehaviour
                         targetPlayerTrfm = playerOneTrfm;
                         targetedPlayer = p1;
                     }
+
+                    if (coroutineRunning) {
+                        StopCoroutine(losePlayerTarget());
+                        coroutineRunning = false;
+                    }
                 }
                 if (Physics2D.Linecast(trfm.position, playerTwoTrfm.position, 1 << 6))
                 {
-                    //hasTargetPlayer = false;
-                    //targetPlayerTrfm = null;
+                    // Player out of sight
+                    if (!coroutineRunning) {
+                        coroutineRunning = true;
+                        StartCoroutine(losePlayerTarget());
+                    }
                 }
             }
             else
@@ -127,12 +142,20 @@ public class Enemy : MonoBehaviour
                         //target player two   
                         targetPlayerTrfm = playerTwoTrfm;
                         targetedPlayer = p2;
+
+                    if (coroutineRunning) {
+                        StopCoroutine(losePlayerTarget());
+                        coroutineRunning = false;
+                    }
                     }
                 }
                 if (Physics2D.Linecast(trfm.position, playerOneTrfm.position, 1 << 6))
                 {
-                    //hasTargetPlayer = false;
-                    //targetPlayerTrfm = null;
+                    // Player out of sight
+                    if (!coroutineRunning) {
+                        coroutineRunning = true;
+                        StartCoroutine(losePlayerTarget());
+                    }
                 }
             }
 
@@ -143,15 +166,35 @@ public class Enemy : MonoBehaviour
                 targetPlayerTrfm = playerOneTrfm;
                 targetedPlayer = p1;
                 hasTargetPlayer = true;
+                Debug.Log("test");
+
+                if (coroutineRunning) {
+                    StopCoroutine(losePlayerTarget());
+                    coroutineRunning = false;
+                }
             }
             if (!Physics2D.Linecast(trfm.position, playerTwoTrfm.position, 1 << 6))
             {
                 targetPlayerTrfm = playerTwoTrfm;
                 targetedPlayer = p2;
                 hasTargetPlayer = true;
+
+                if (coroutineRunning) {
+                    StopCoroutine(losePlayerTarget());
+                    coroutineRunning = false;
+                }
             }
         }
     }
+
+    // Enemy forgets player after memoryTime seconds
+    IEnumerator losePlayerTarget() {
+        yield return new WaitForSeconds(memoryTime);
+        hasTargetPlayer = false;
+        targetPlayerTrfm = null;
+        coroutineRunning = false;
+    }
+
     void doKnockback()
     {
         if (knockbackForce > 0)
@@ -209,6 +252,7 @@ public class Enemy : MonoBehaviour
 
         }
     }
+
 
 
 

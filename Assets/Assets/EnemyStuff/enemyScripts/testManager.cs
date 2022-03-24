@@ -7,7 +7,7 @@ public class testManager : MonoBehaviour
     public Transform playerOneTrfm, playerTwoTrfm;
     public static Transform plyrOneTrfm, plyrTwoTrfm;
 
-    private void Awake()
+    void Update()
     {
         plyrOneTrfm = playerOneTrfm; plyrTwoTrfm = playerTwoTrfm;
         Enemy.assignPlayerTransforms(playerOneTrfm, playerTwoTrfm);
