@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Mover : MonoBehaviour
+public class CharacterMover : MonoBehaviour
 {
     [SerializeField]
     private float MoveSpeed = 3f;

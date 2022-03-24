@@ -223,7 +223,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3336040056114772118, guid: 578592e729bcfc940a44551233eb4060, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.72053957
+      value: 1.42
       objectReference: {fileID: 0}
     - target: {fileID: 3336040056114772118, guid: 578592e729bcfc940a44551233eb4060, type: 3}
       propertyPath: m_LocalPosition.y
@@ -261,7 +261,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3336040056114772104, guid: 578592e729bcfc940a44551233eb4060, type: 3}
+    - {fileID: 3336040056114772119, guid: 578592e729bcfc940a44551233eb4060, type: 3}
+    - {fileID: 714677047494085491, guid: 578592e729bcfc940a44551233eb4060, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 578592e729bcfc940a44551233eb4060, type: 3}
 --- !u!1 &583557023 stripped
 GameObject:
@@ -277,9 +280,40 @@ MonoBehaviour:
   m_GameObject: {fileID: 583557023}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4591db342b69034fb1ed966b523d538, type: 3}
+  m_Script: {fileID: 11500000, guid: c5ea2523c14d7dc41b0ec2f5f90a7e2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MoveSpeed: 3
+--- !u!114 &583557025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 583557023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c6418d3ddc51b44bb939cbaa7247c4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!143 &583557026
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 583557023}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2.22
+  m_Radius: 0.38
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0.81, z: 0}
 --- !u!1 &815251264
 GameObject:
   m_ObjectHideFlags: 0
@@ -383,3 +417,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1d208c5052a2774b84ed5834a570728, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerSpawns: []
+  playerPrefab: {fileID: 0}
