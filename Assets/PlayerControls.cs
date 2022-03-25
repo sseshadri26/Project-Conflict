@@ -10,6 +10,8 @@ public class PlayerControls : MonoBehaviour
 
     private Rigidbody2D rb;
 
+    private bool isBeingTurned;
+
     private Vector2 moveDirection;
 
     private Vector2 faceDirection;
@@ -53,11 +55,15 @@ public class PlayerControls : MonoBehaviour
     {
         Move();
         Turn();
+
+            
     }
 
     public void OnMove(InputAction.CallbackContext context)
     {
         moveDirection = context.ReadValue<Vector2>();
+        if (!isBeingTurned)
+            faceDirection = moveDirection;
     }
 
     bool modifierPressed;
@@ -92,6 +98,9 @@ public class PlayerControls : MonoBehaviour
         if (playerInput.currentControlScheme == "Gamepad")
         {
             faceDirection = context.ReadValue<Vector2>();
+            if (faceDirection == Vector2.zero)
+                isBeingTurned = false;
+            else isBeingTurned = true;
         }
         else if (playerInput.currentControlScheme == "Keyboard&Mouse")
         {
@@ -130,7 +139,7 @@ public class PlayerControls : MonoBehaviour
         //this.transform.LookAt(faceDirection);
         /*Added by Vikram*/
         float angle;
-        if (faceDirection.x != 0)
+        if (faceDirection.x != 0)  
             angle = Mathf.Atan(faceDirection.y / faceDirection.x);
         else
             angle = 0;
