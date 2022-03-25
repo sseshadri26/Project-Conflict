@@ -55,15 +55,12 @@ public class PlayerControls : MonoBehaviour
     {
         Move();
         Turn();
-
-            
     }
 
     public void OnMove(InputAction.CallbackContext context)
     {
         moveDirection = context.ReadValue<Vector2>();
-        if (!isBeingTurned)
-            faceDirection = moveDirection;
+        if (!isBeingTurned) faceDirection = moveDirection;
     }
 
     bool modifierPressed;
@@ -100,19 +97,23 @@ public class PlayerControls : MonoBehaviour
             faceDirection = context.ReadValue<Vector2>();
             if (faceDirection == Vector2.zero)
                 isBeingTurned = false;
-            else isBeingTurned = true;
+            else
+                isBeingTurned = true;
         }
         else if (playerInput.currentControlScheme == "Keyboard&Mouse")
         {
             //get a vector from the parent's origin to the mouse's
             Camera cam = Camera.main;
-            Vector2 tempVector = context.ReadValue<Vector2>();
-            Vector3 cursorPosition =
-                cam
-                    .ScreenToWorldPoint(new Vector3(tempVector.x,
-                        tempVector.y,
-                        1));
-            Vector3 currentPosition = this.transform.position;
+            VoronoiSplit vs = cam.GetComponent<VoronoiSplit>();
+
+            Vector2 cursorPosition = context.ReadValue<Vector2>();
+
+            //array of vector2 holding vs.GetPlayerScreenPositions()
+            Vector2[] playerScreenPositions = vs.GetPlayerScreenPositions();
+
+            Vector2 currentPosition =
+                playerScreenPositions[playerInput.playerIndex];
+
             faceDirection = cursorPosition - currentPosition;
         }
 
@@ -139,7 +140,7 @@ public class PlayerControls : MonoBehaviour
         //this.transform.LookAt(faceDirection);
         /*Added by Vikram*/
         float angle;
-        if (faceDirection.x != 0)  
+        if (faceDirection.x != 0)
             angle = Mathf.Atan(faceDirection.y / faceDirection.x);
         else
             angle = 0;
