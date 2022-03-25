@@ -51110,8 +51110,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1e5a293b392c8d478777eb2bf27d7cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerOneTrfm: {fileID: 489518753}
-  playerTwoTrfm: {fileID: 777441320}
+  playerOneTrfm: {fileID: 777441320}
+  playerTwoTrfm: {fileID: 489518753}
 --- !u!1 &690418720
 GameObject:
   m_ObjectHideFlags: 0
@@ -85321,11 +85321,11 @@ PrefabInstance:
     - target: {fileID: 7868160904874821159, guid: 5a2fd26dcb6f9264f90a7117a1aa47a5, type: 3}
       propertyPath: Players.Array.data[0]
       value: 
-      objectReference: {fileID: 489518753}
+      objectReference: {fileID: 777441320}
     - target: {fileID: 7868160904874821159, guid: 5a2fd26dcb6f9264f90a7117a1aa47a5, type: 3}
       propertyPath: Players.Array.data[1]
       value: 
-      objectReference: {fileID: 777441320}
+      objectReference: {fileID: 489518753}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a2fd26dcb6f9264f90a7117a1aa47a5, type: 3}
 --- !u!1 &1975553957

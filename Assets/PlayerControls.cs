@@ -31,6 +31,10 @@ public class PlayerControls : MonoBehaviour
     [SerializeField]
     Camera m_camera;
 
+    Camera cam;
+
+    VoronoiSplit vs;
+
     public bool IsP1()
     {
         return isP1;
@@ -44,6 +48,8 @@ public class PlayerControls : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        cam = Camera.main;
+        vs = cam.GetComponent<VoronoiSplit>();
     }
 
     // Update is called once per frame
@@ -103,16 +109,20 @@ public class PlayerControls : MonoBehaviour
         else if (playerInput.currentControlScheme == "Keyboard&Mouse")
         {
             //get a vector from the parent's origin to the mouse's
-            Camera cam = Camera.main;
-            VoronoiSplit vs = cam.GetComponent<VoronoiSplit>();
-
             Vector2 cursorPosition = context.ReadValue<Vector2>();
+            Vector2 currentPosition;
+            if (vs != null)
+            {
+                //array of vector2 holding vs.GetPlayerScreenPositions()
+                Vector2[] playerScreenPositions = vs.GetPlayerScreenPositions();
 
-            //array of vector2 holding vs.GetPlayerScreenPositions()
-            Vector2[] playerScreenPositions = vs.GetPlayerScreenPositions();
-
-            Vector2 currentPosition =
-                playerScreenPositions[playerInput.playerIndex];
+                currentPosition =
+                    playerScreenPositions[playerInput.playerIndex];
+            }
+            else
+            {
+                currentPosition = cam.WorldToScreenPoint(transform.position);
+            }
 
             faceDirection = cursorPosition - currentPosition;
         }
