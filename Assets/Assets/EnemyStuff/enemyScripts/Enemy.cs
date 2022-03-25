@@ -46,8 +46,6 @@ public class Enemy : MonoBehaviour
         trfm = transform;
         rb = GetComponent<Rigidbody2D>();
         seeker = GetComponent<Seeker>();
-
-        // InvokeRepeating("UpdatePath", 0f, 0.5f);
     }
 
     // Start calculating enemy's path to player
@@ -66,6 +64,7 @@ public class Enemy : MonoBehaviour
     protected void OnPathComplete(Path p) {
         if (!p.error) {
             path = p;
+            currentWaypoint = 0;
         }
     }
 
@@ -85,7 +84,7 @@ public class Enemy : MonoBehaviour
             return;
         
         // Reached player?
-        if(path.GetTotalLength() < inRangeOfPlayer) {
+        if(path.GetTotalLength() < inRangeOfPlayer || currentWaypoint >= path.vectorPath.Count) {
             reachedEndOfPath = true;
             trfm.up = Vector2.Lerp(trfm.up, ((Vector2)(targetPlayerTrfm.position - trfm.position)).normalized, Time.deltaTime * rotationSpeed);
             return;
@@ -288,6 +287,7 @@ public class Enemy : MonoBehaviour
         }
         return false;
     }
+
 
     public void takeKnockback(float power, Vector2 source)
     {
