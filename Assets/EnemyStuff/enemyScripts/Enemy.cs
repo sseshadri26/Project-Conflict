@@ -238,7 +238,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    protected void moveForward(float spd)
+    protected virtual void moveForward(float spd)
     {
         trfm.position += trfm.up * spd;
     }
