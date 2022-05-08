@@ -88,7 +88,8 @@ public class Enemy : MonoBehaviour
     void LateUpdate() {
         // Update animator variables
         animator.SetBool("isMoving", !isStill);
-        animator.SetFloat("Rot", Vector3.SignedAngle(-Vector3.up, trfm.up, new Vector3(0, 0, -1)) + 180);
+        animator.SetFloat("forwardX", trfm.up.x);
+        animator.SetFloat("forwardY", trfm.up.y);
     }
 
     protected void moveToPlayer(float thisSpeed) {
