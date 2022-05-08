@@ -31,7 +31,7 @@ public class Enemy : MonoBehaviour
 
     // Animator variables
     protected Animator animator;
-    protected bool isStill;
+    protected bool isStill; // set to false if enemy walks
 
     // Pathfinding variables
     [SerializeField] protected float inRangeOfPlayer = 1f;    // How far from player should enemy stop?
@@ -50,7 +50,7 @@ public class Enemy : MonoBehaviour
         trfm = transform;
         rb = GetComponent<Rigidbody2D>();
         seeker = GetComponent<Seeker>();
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     // Start calculating enemy's path to player
@@ -83,10 +83,12 @@ public class Enemy : MonoBehaviour
         }
         if (stunTmr>0) { stunTmr--; }
         doKnockback();
+    }
 
-        // Debug.Log("speed: " + Vector3.Distance(originalPos, trfm.position));
-        animator.SetBool("isMoving", isStill);
-        animator.SetFloat("Rot", Vector3.Angle(Vector3.up, trfm.up));
+    void LateUpdate() {
+        // Update animator variables
+        animator.SetBool("isMoving", !isStill);
+        animator.SetFloat("Rot", Vector3.SignedAngle(-Vector3.up, trfm.up, new Vector3(0, 0, -1)) + 180);
     }
 
     protected void moveToPlayer(float thisSpeed) {
@@ -175,7 +177,7 @@ public class Enemy : MonoBehaviour
                 targetPlayerTrfm = playerOneTrfm;
                 targetedPlayer = p1;
                 hasTargetPlayer = true;
-                Debug.Log("test");
+                // Debug.Log("test");
 
                 if (coroutineRunning) {
                     StopCoroutine(losePlayerTarget());
