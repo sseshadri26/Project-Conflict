@@ -52,6 +52,9 @@ public class PlayerConfigurationManager : MonoBehaviour
         {
             // GameManager.Instance.StartGame();
             //Load Local Co-Op Scene
+            playerConfigurations[0].Input.SwitchCurrentActionMap("Player");
+            playerConfigurations[1].Input.SwitchCurrentActionMap("Player");
+
             SceneManager.LoadScene("Local Co-Op");
         }
     }
@@ -73,7 +76,7 @@ public class PlayerConfigurationManager : MonoBehaviour
             //the player is now a child of this object
             pi.transform.SetParent (transform);
             playerConfigurations.Add(new PlayerConfiguration(pi));
-            // pi.SwitchCurrentActionMap("UI");
+            pi.SwitchCurrentActionMap("UI");
         }
         else
         {

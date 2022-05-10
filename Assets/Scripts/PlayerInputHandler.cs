@@ -10,13 +10,13 @@ public class PlayerInputHandler : MonoBehaviour
 {
     private PlayerConfiguration playerConfig;
 
-    private CharacterMover mover;
+    private PlayerControls playerControls;
 
     private ProjectConflictControls controls;
 
     private void Awake()
     {
-        mover = GetComponent<CharacterMover>();
+        playerControls = GetComponent<PlayerControls>();
         controls = new ProjectConflictControls();
     }
 
@@ -26,16 +26,18 @@ public class PlayerInputHandler : MonoBehaviour
         config.Input.onActionTriggered += Input_onActionTriggered;
     }
 
-    private void Input_onActionTriggered(CallbackContext obj)
+    private void Input_onActionTriggered(InputAction.CallbackContext context)
     {
-        if (obj.action.name == controls.Player.Move.name)
+        // Debug.Log (controls);
+        // print the action that was triggered
+        // Debug.Log(context.action.name + " was triggered");
+        // Debug.Log (controls);
+        if (context.action.name == controls.Player.Move.name)
         {
-            OnMove (obj);
+            if (playerControls != null)
+            {
+                playerControls.OnMove (context);
+            }
         }
-    }
-
-    public void OnMove(CallbackContext context)
-    {
-        if (mover != null) mover.SetInputVector(context.ReadValue<Vector2>());
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -69,6 +70,11 @@ public class PlayerControls : MonoBehaviour
         if (!isBeingTurned) faceDirection = moveDirection;
     }
 
+    // public void OnMove(CallbackContext context)
+    // {
+    //     moveDirection = context.ReadValue<Vector2>();
+    //     if (!isBeingTurned) faceDirection = moveDirection;
+    // }
     bool modifierPressed;
 
     bool buttonDown = false;

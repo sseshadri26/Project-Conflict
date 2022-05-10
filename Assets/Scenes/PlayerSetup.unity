@@ -345,5 +345,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerConfigurationManager
       objectReference: {fileID: 0}
+    - target: {fileID: 7589908811634042252, guid: f7719ea68f92def46a8c92eaa9a7e853, type: 3}
+      propertyPath: MaxPlayers
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f7719ea68f92def46a8c92eaa9a7e853, type: 3}
