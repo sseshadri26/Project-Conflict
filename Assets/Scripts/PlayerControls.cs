@@ -17,6 +17,12 @@ public class PlayerControls : MonoBehaviour
 
     private Vector2 faceDirection;
 
+    private Animator anim;
+
+    private Vector2 animDirection;
+
+    private Transform hands;
+
     [SerializeField]
     bool
 
@@ -51,6 +57,8 @@ public class PlayerControls : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         cam = Camera.main;
         vs = cam.GetComponent<VoronoiSplit>();
+        anim = GetComponent<Animator>();
+        hands = this.gameObject.transform.GetChild(1);
     }
 
     // Update is called once per frame
@@ -62,6 +70,7 @@ public class PlayerControls : MonoBehaviour
     {
         Move();
         Turn();
+        Animate();
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -148,6 +157,13 @@ public class PlayerControls : MonoBehaviour
         rb.velocity =
             new Vector2(moveDirection.x * moveSpeed,
                 moveDirection.y * moveSpeed);
+        // only change the direction if the player moves so that the animation frame stays on the last input
+        // (i.e. if you move right, the position will stay at [1, 0] and Player_East.anim will play
+        // until there's a different directional input)
+        if (moveDirection.x != 0 || moveDirection.y != 0)
+        {
+            animDirection = new Vector2(moveDirection.x, moveDirection.y);
+        }
     }
 
     //turn the player in the direction of the Vector2 faceDirection
@@ -185,7 +201,16 @@ public class PlayerControls : MonoBehaviour
                 angle += 360;
             }
         }
-        this.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        //this.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+
+        // use this function to rotate the hands instead
+        hands.localEulerAngles = new Vector3(0, 0, angle);
+    }
+
+    private void Animate()
+    {
+        anim.SetFloat("movementX", animDirection.x);
+        anim.SetFloat("movementY", animDirection.y);
     }
 
     private void OnTriggerEnter2D(Collider2D col)

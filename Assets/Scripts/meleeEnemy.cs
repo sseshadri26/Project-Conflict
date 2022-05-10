@@ -15,6 +15,7 @@ public class meleeEnemy : Enemy
 
     protected void castAttack(int cooldownMin, int cooldownMax, int castDuration)
     {
+        animator.SetTrigger("isAttacking");
         abilityCooldown = Random.Range(cooldownMin, cooldownMax);
         abilityCast = castDuration;
         attackObj.SetActive(true);

@@ -239,6 +239,66 @@ MonoBehaviour:
   memoryTime: 10
   attackObj: {fileID: 4695263840728414513}
   attackRend: {fileID: 1598181710892405193}
+  stepCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: -0.9659242
+      outSlope: -0.9659242
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.2822572
+      value: -0.27263907
+      inSlope: 0.14567071
+      outSlope: 0.14567071
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.3459838
+    - serializedVersion: 3
+      time: 0.57618904
+      value: -0.00095111504
+      inSlope: 0.18852094
+      outSlope: 0.18852094
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.30827627
+    - serializedVersion: 3
+      time: 0.736779
+      value: 0.30849448
+      inSlope: 4.0031743
+      outSlope: 4.0031743
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.19675456
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.95056134
+      value: 1.5
+      inSlope: -4.9033184
+      outSlope: -4.9033184
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 1
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -30.340631
+      outSlope: -30.340631
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &3032381773001112807
 MonoBehaviour:
   m_ObjectHideFlags: 0
