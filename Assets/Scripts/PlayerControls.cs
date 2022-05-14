@@ -18,9 +18,10 @@ public class PlayerControls : MonoBehaviour
 
     private Animator anim;
 
-    private Vector2 animDirection;
+    private float angleIdle;
 
-    private Transform hands;
+    // index 0 - idle hand; index 1 = weapon hand
+    private Transform[] hands;
 
     [SerializeField]
     bool
@@ -57,7 +58,10 @@ public class PlayerControls : MonoBehaviour
         cam = Camera.main;
         vs = cam.GetComponent<VoronoiSplit>();
         anim = GetComponent<Animator>();
-        hands = this.gameObject.transform.GetChild(1);
+        angleIdle = -90;
+        hands = new Transform[2];
+        hands[0] = this.gameObject.transform.GetChild(1); // child objects are offset by 1 due to attachpoint
+        hands[1] = this.gameObject.transform.GetChild(2);
     }
 
     // Update is called once per frame
@@ -68,7 +72,13 @@ public class PlayerControls : MonoBehaviour
     void FixedUpdate()
     {
         Move();
-        Turn();
+        // only change the direction if the player moves;
+        // faceDirection is for the 360-degree weapon hand movement
+        // moveDirection is for 8-directional movement with animations and the idle hand
+        if (faceDirection.x != 0 || faceDirection.y != 0)
+        {
+            Turn();
+        }
         Animate();
     }
 
@@ -151,13 +161,6 @@ public class PlayerControls : MonoBehaviour
         rb.velocity =
             new Vector2(moveDirection.x * moveSpeed,
                 moveDirection.y * moveSpeed);
-        // only change the direction if the player moves so that the animation frame stays on the last input
-        // (i.e. if you move right, the position will stay at [1, 0] and Player_East.anim will play
-        // until there's a different directional input)
-        if (moveDirection.x != 0 || moveDirection.y != 0)
-        {
-            animDirection = new Vector2(moveDirection.x, moveDirection.y);
-        }
     }
 
     //turn the player in the direction of the Vector2 faceDirection
@@ -166,45 +169,42 @@ public class PlayerControls : MonoBehaviour
         //this.transform.LookAt(faceDirection);
         /*Added by Vikram*/
         float angle;
-        if (faceDirection.x != 0)
-            angle = Mathf.Atan(faceDirection.y / faceDirection.x);
-        else
-            angle = 0;
-        angle *= Mathf.Rad2Deg;
 
-        //1st or 3rd quadrant
-        if (angle > 0)
-        {
-            //3rd quadrant
-            if (faceDirection.x < 0)
-            {
-                angle += 180;
-            }
-        }
-        else
-        //2nd or 4th quadrant
-        {
-            //2nd quadrant
-            if (faceDirection.x < 0)
-            {
-                angle += 180;
-            }
-            else
-            //4th quadrant
-            {
-                angle += 360;
-            }
-        }
+        // calculates arctangent to get the angle between [-180, 180] instead of just the 1st and 4th quadrants
+        // Note: This function takes account of the cases where x is zero and
+        // returns the correct angle rather than throwing a division by zero exception. (re: unity doc)
+        angle = Mathf.Atan2(faceDirection.y, faceDirection.x) * Mathf.Rad2Deg;
+
         //this.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
-        // use this function to rotate the hands instead
-        hands.localEulerAngles = new Vector3(0, 0, angle);
+        // use this function to rotate the weapon hand instead
+        hands[1].localEulerAngles = new Vector3(0, 0, angle);
     }
 
     private void Animate()
     {
-        anim.SetFloat("movementX", animDirection.x);
-        anim.SetFloat("movementY", animDirection.y);
+        bool movement = false;
+        if (moveDirection.x != 0 || moveDirection.y != 0)
+        {
+            // movementX/Y are the parameters used to pick the precise sprite in
+            // the blend tree inside the Animator window
+            anim.SetFloat("movementX", moveDirection.x);
+            anim.SetFloat("movementY", moveDirection.y);
+
+            // logic for turning the idle hand by the player
+            angleIdle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
+
+            // offset so that the hand is next to the player instead of in front
+            angleIdle += 90;
+
+            hands[0].localEulerAngles = new Vector3(0, 0, angleIdle);
+            movement = true;
+        }
+        else
+        {
+            anim.SetFloat("angle", angleIdle - 90);
+        }
+        anim.SetBool("isMoving", movement);
     }
 
     private void OnTriggerEnter2D(Collider2D col)
