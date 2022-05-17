@@ -39,8 +39,20 @@ AnimationClip:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
   m_ClipBindingConstant:
-    genericBindings: []
-    pptrCurveMapping: []
+    genericBindings:
+    - serializedVersion: 2
+      path: 0
+      attribute: 0
+      script: {fileID: 0}
+      typeID: 212
+      customType: 23
+      isPPtrCurve: 1
+    pptrCurveMapping:
+    - {fileID: 21300000, guid: a96f0b0232a5447dcac85cfdf88023d5, type: 3}
+    - {fileID: 21300000, guid: b14b486ee8451421895fd4dd0308e3f9, type: 3}
+    - {fileID: 21300000, guid: 7f0a4dcafb3de48e796fd61b933eb137, type: 3}
+    - {fileID: 21300000, guid: 493068431effd48e791a6d336603320e, type: 3}
+    - {fileID: 21300000, guid: d859b96a9c2a74854b9b2ed54dcaac36, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
@@ -65,4 +77,11 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 0.5714286
+    functionName: castAttack
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
