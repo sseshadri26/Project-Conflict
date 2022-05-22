@@ -51,6 +51,14 @@ public class PlayerControls : MonoBehaviour
         return attachPoint;
     }
 
+    public static Transform getPos(bool p1)
+    {
+        if (p1) return p1Trfm;
+        return p2Trfm;
+    }
+    static Transform p1Trfm;
+    static Transform p2Trfm;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -58,11 +66,15 @@ public class PlayerControls : MonoBehaviour
         vs = cam.GetComponent<VoronoiSplit>();
         anim = GetComponent<Animator>();
         hands = this.gameObject.transform.GetChild(1);
+
+        if (isP1) { p1Trfm = transform; }
+        else { p2Trfm = transform; }
     }
 
     // Update is called once per frame
     void Update()
     {
+
     }
 
     void FixedUpdate()
@@ -70,6 +82,27 @@ public class PlayerControls : MonoBehaviour
         Move();
         Turn();
         Animate();
+
+
+
+
+
+        if (doubleClick > 0)
+        {
+            doubleClick--;
+        }
+        
+        if (spinAttacking > 0)
+        {
+            spinAttacking--;
+        } else
+        {
+            if (throwQued)
+            {
+                ThrowFork();
+                throwQued = false;
+            }
+        }
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -81,7 +114,9 @@ public class PlayerControls : MonoBehaviour
     bool modifierPressed;
 
     bool buttonDown = false;
-
+    [SerializeField] bool throwQued;
+    int doubleClick;
+    int spinAttacking;
     public void OnFire(InputAction.CallbackContext context)
     {
         modifierPressed = context.performed;
@@ -91,9 +126,15 @@ public class PlayerControls : MonoBehaviour
             {
                 buttonDown = true;
 
-                if (weaponEquipped)
+                if (doubleClick > 0)
                 {
-                    weaponEquipped = !m_weapon.Throw();
+                    throwQued = true;
+                    doubleClick = 0;
+                }
+                else
+                {
+                    doSpinAttack();
+                    doubleClick = 10;
                 }
             }
         }
@@ -101,6 +142,25 @@ public class PlayerControls : MonoBehaviour
         {
             buttonDown = false;
         }
+    }
+    public void ThrowFork()
+    {
+        //Debug.Log("calling throw");
+        if (weaponEquipped)
+        {
+            //Debug.Log("weap eq");
+            weaponEquipped = !m_weapon.Throw(isP1);
+        }
+    }
+    public bool doSpinAttack()
+    {
+        if (spinAttacking < 1)
+        {
+            spinAttacking = 15;
+            m_weapon.doSpinAttack();
+            return true;
+        }
+        return false;
     }
 
     public void OnFaceDirection(InputAction.CallbackContext context)
@@ -209,12 +269,12 @@ public class PlayerControls : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        Debug.Log(col.gameObject.tag);
+        //Debug.Log(col.gameObject.tag);
         if (col.gameObject.tag == "weapon")
         {
             weaponEquipped = m_weapon.PickUp(this);
         }
 
-        Debug.Log($"touched {col.name}");
+        //Debug.Log($"touched {col.name}");
     }
 }
