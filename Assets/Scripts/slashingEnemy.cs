@@ -43,8 +43,9 @@ public class slashingEnemy : meleeEnemy
         }
         else
         {
-            castAttack(100, 200, 10);
-            setAttackRendColor(1);
+            animator.SetTrigger("isAttacking");
+            // temporarily increase ability cooldown to prevent animator from triggering twice
+            abilityCooldown = 1000;
         }
     }
 }

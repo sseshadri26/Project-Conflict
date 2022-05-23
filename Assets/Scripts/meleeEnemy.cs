@@ -13,12 +13,12 @@ public class meleeEnemy : Enemy
         EnemyStart();
     }
 
-    protected void castAttack(int cooldownMin, int cooldownMax, int castDuration)
+    public void castAttack(int cooldownMin, int cooldownMax, int castDuration)
     {
-        animator.SetTrigger("isAttacking");
         abilityCooldown = Random.Range(cooldownMin, cooldownMax);
         abilityCast = castDuration;
-        attackObj.SetActive(true);
+        // attackObj.SetActive(true);
+        Debug.Log("attacked");
     }
     protected void setAttackRendColor(float value)
     {
