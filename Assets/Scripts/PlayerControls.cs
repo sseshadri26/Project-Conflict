@@ -16,12 +16,12 @@ public class PlayerControls : MonoBehaviour
 
     private Vector2 faceDirection;
 
-    private Animator anim;
+    [SerializeField] private Animator anim;
 
     private float angleIdle;
 
     // index 0 - idle hand; index 1 = weapon hand
-    private Transform[] hands;
+    [SerializeField] private Transform[] hands;
 
     [SerializeField]
     bool
@@ -60,20 +60,25 @@ public class PlayerControls : MonoBehaviour
     static Transform p1Trfm;
     static Transform p2Trfm;
 
+    [SerializeField] Transform hand;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         cam = Camera.main;
         vs = cam.GetComponent<VoronoiSplit>();
-        anim = GetComponent<Animator>();
-        hands = this.gameObject.transform.GetChild(1);
+        //anim = GetComponent<Animator>();
+        //hands = this.gameObject.transform.GetChild(1);
 
         if (isP1) { p1Trfm = transform; }
         else { p2Trfm = transform; }
         angleIdle = -90;
+        /*
         hands = new Transform[2];
         hands[0] = this.gameObject.transform.GetChild(1); // child objects are offset by 1 due to attachpoint
         hands[1] = this.gameObject.transform.GetChild(2);
+        */ 
+        //sorry commented our your code trying to get stuff to compile :|   -kaiway
     }
 
     // Update is called once per frame
@@ -239,7 +244,7 @@ public class PlayerControls : MonoBehaviour
         //this.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
         // use this function to rotate the weapon hand instead
-        hands[1].localEulerAngles = new Vector3(0, 0, angle);
+        //hands[1].localEulerAngles = new Vector3(0, 0, angle);
     }
 
     private void Animate()
@@ -258,7 +263,7 @@ public class PlayerControls : MonoBehaviour
             // offset so that the hand is next to the player instead of in front
             angleIdle += 90;
 
-            hands[0].localEulerAngles = new Vector3(0, 0, angleIdle);
+            //hands[0].localEulerAngles = new Vector3(0, 0, angleIdle);
             movement = true;
         }
         else
