@@ -16,12 +16,12 @@ public class PlayerControls : MonoBehaviour
 
     private Vector2 faceDirection;
 
-    private Animator anim;
+    [SerializeField] private Animator anim;
 
     private float angleIdle;
 
     // index 0 - idle hand; index 1 = weapon hand
-    private Transform[] hands;
+    [SerializeField] private Transform[] hands;
 
     [SerializeField]
     bool
@@ -52,21 +52,39 @@ public class PlayerControls : MonoBehaviour
         return attachPoint;
     }
 
+    public static Transform getPos(bool p1)
+    {
+        if (p1) return p1Trfm;
+        return p2Trfm;
+    }
+    static Transform p1Trfm;
+    static Transform p2Trfm;
+
+    [SerializeField] Transform hand;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         cam = Camera.main;
         vs = cam.GetComponent<VoronoiSplit>();
-        anim = GetComponent<Animator>();
+        //anim = GetComponent<Animator>();
+        //hands = this.gameObject.transform.GetChild(1);
+
+        if (isP1) { p1Trfm = transform; }
+        else { p2Trfm = transform; }
         angleIdle = -90;
+        /*
         hands = new Transform[2];
         hands[0] = this.gameObject.transform.GetChild(1); // child objects are offset by 1 due to attachpoint
         hands[1] = this.gameObject.transform.GetChild(2);
+        */ 
+        //sorry commented our your code trying to get stuff to compile :|   -kaiway
     }
 
     // Update is called once per frame
     void Update()
     {
+
     }
 
     void FixedUpdate()
@@ -80,6 +98,27 @@ public class PlayerControls : MonoBehaviour
             Turn();
         }
         Animate();
+
+
+
+
+
+        if (doubleClick > 0)
+        {
+            doubleClick--;
+        }
+        
+        if (spinAttacking > 0)
+        {
+            spinAttacking--;
+        } else
+        {
+            if (throwQued)
+            {
+                ThrowFork();
+                throwQued = false;
+            }
+        }
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -91,7 +130,9 @@ public class PlayerControls : MonoBehaviour
     bool modifierPressed;
 
     bool buttonDown = false;
-
+    [SerializeField] bool throwQued;
+    int doubleClick;
+    int spinAttacking;
     public void OnFire(InputAction.CallbackContext context)
     {
         modifierPressed = context.performed;
@@ -101,9 +142,15 @@ public class PlayerControls : MonoBehaviour
             {
                 buttonDown = true;
 
-                if (weaponEquipped)
+                if (doubleClick > 0)
                 {
-                    weaponEquipped = !m_weapon.Throw();
+                    throwQued = true;
+                    doubleClick = 0;
+                }
+                else
+                {
+                    doSpinAttack();
+                    doubleClick = 10;
                 }
             }
         }
@@ -111,6 +158,25 @@ public class PlayerControls : MonoBehaviour
         {
             buttonDown = false;
         }
+    }
+    public void ThrowFork()
+    {
+        //Debug.Log("calling throw");
+        if (weaponEquipped)
+        {
+            //Debug.Log("weap eq");
+            weaponEquipped = !m_weapon.Throw(isP1);
+        }
+    }
+    public bool doSpinAttack()
+    {
+        if (spinAttacking < 1)
+        {
+            spinAttacking = 15;
+            m_weapon.doSpinAttack();
+            return true;
+        }
+        return false;
     }
 
     public void OnFaceDirection(InputAction.CallbackContext context)
@@ -178,7 +244,7 @@ public class PlayerControls : MonoBehaviour
         //this.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
         // use this function to rotate the weapon hand instead
-        hands[1].localEulerAngles = new Vector3(0, 0, angle);
+        //hands[1].localEulerAngles = new Vector3(0, 0, angle);
     }
 
     private void Animate()
@@ -197,7 +263,7 @@ public class PlayerControls : MonoBehaviour
             // offset so that the hand is next to the player instead of in front
             angleIdle += 90;
 
-            hands[0].localEulerAngles = new Vector3(0, 0, angleIdle);
+            //hands[0].localEulerAngles = new Vector3(0, 0, angleIdle);
             movement = true;
         }
         else
@@ -209,12 +275,12 @@ public class PlayerControls : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        Debug.Log(col.gameObject.tag);
+        //Debug.Log(col.gameObject.tag);
         if (col.gameObject.tag == "weapon")
         {
             weaponEquipped = m_weapon.PickUp(this);
         }
 
-        Debug.Log($"touched {col.name}");
+        //Debug.Log($"touched {col.name}");
     }
 }
