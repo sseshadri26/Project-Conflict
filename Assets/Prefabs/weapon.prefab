@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2087631608619253279}
   - component: {fileID: 8504973000606053498}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: throwBlurFront
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: ce70197c515d29b47b7e3d167a520d9d, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.64705884}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.5176471}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -212,7 +212,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4.9999995, y: 42}
+  m_Size: {x: 4.9999995, y: 40}
   m_EdgeRadius: 0
 --- !u!50 &8456500638850743370
 Rigidbody2D:
@@ -245,7 +245,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8713351981474466927}
   - component: {fileID: 7929273800190068872}
-  m_Layer: 0
+  - component: {fileID: 6485688399333187152}
+  m_Layer: 8
   m_Name: slash circular
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -317,6 +318,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!58 &6485688399333187152
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7140173967677490789}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 1
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 3.5
 --- !u!1 &7974614099934825423
 GameObject:
   m_ObjectHideFlags: 0
@@ -327,7 +344,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4370142399944055687}
   - component: {fileID: 4930616332808891563}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: img
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -409,7 +426,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5759928333521625187}
   - component: {fileID: 1527169597838782186}
-  m_Layer: 0
+  - component: {fileID: 1179649821026797194}
+  m_Layer: 8
   m_Name: throwBlurBack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -481,3 +499,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!70 &1179649821026797194
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8486309188697041598}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 1}
+  m_Size: {x: 3.5, y: 7}
+  m_Direction: 0
