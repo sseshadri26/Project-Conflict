@@ -6,7 +6,7 @@ using Pathfinding;
 public class Enemy : MonoBehaviour
 {
 
-    [SerializeField] protected int health;
+    [SerializeField] protected int health = 100;
     [SerializeField] protected float speed = 0.05f;
     [SerializeField] protected float rotationSpeed = 7f;
     private static Transform playerOneTrfm, playerTwoTrfm;
@@ -35,13 +35,15 @@ public class Enemy : MonoBehaviour
 
     // Pathfinding variables
     [SerializeField] protected float inRangeOfPlayer = 1f;    // How far from player should enemy stop?
+    [SerializeField] protected float maxChaseDistance = 15f;    // How far before enemy stops chasing player?
     private float nextWaypointDistance = .5f;
     private Path path;
     private int currentWaypoint = 0;
     private bool reachedEndOfPath = false;
     private Seeker seeker;
+    protected bool tooFar = false;
     // Path rememberance variables
-    [SerializeField] protected float memoryTime = 10f;      // How long should enemy remember and chase player?
+    [SerializeField] protected float memoryTime = 8f;      // How long should enemy remember and chase player?
     private bool coroutineRunning = false;
 
     // Start is called before the first frame update
@@ -76,6 +78,11 @@ public class Enemy : MonoBehaviour
     protected void EnemyFixedUpdate()
     {
         isStill = true;
+        if (path == null || path.GetTotalLength() > maxChaseDistance) {
+            tooFar = true;
+        } else {
+            tooFar = false;
+        }
         UpdatePath();
         if (!hasTargetPlayer)
         {
@@ -93,7 +100,7 @@ public class Enemy : MonoBehaviour
     }
 
     protected void moveToPlayer(float thisSpeed) {
-        if (path == null)
+        if (path == null || path.GetTotalLength() > maxChaseDistance)
             return;
         
         // Reached player?

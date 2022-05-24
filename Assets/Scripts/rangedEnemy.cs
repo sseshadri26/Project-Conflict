@@ -28,7 +28,7 @@ public class rangedEnemy : Enemy
 
     void doAbilityCycle()
     {
-        if (abilityCooldown > 0)
+        if (abilityCooldown > 0 || tooFar)
         {
             abilityCooldown--;
         } else

@@ -29,7 +29,7 @@ public class dashingEnemy : meleeEnemy
 
     void doAbilityCycle()
     {
-        if (abilityCooldown > 0)
+        if (abilityCooldown > 0 || tooFar)
         {
             abilityCooldown--;
         }

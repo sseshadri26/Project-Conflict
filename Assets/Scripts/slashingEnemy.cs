@@ -37,7 +37,7 @@ public class slashingEnemy : meleeEnemy
     }
     void doAbilityCycle()
     {
-        if (abilityCooldown > 0)
+        if (abilityCooldown > 0 || tooFar)
         {
             abilityCooldown--;
         }
