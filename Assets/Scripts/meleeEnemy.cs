@@ -18,7 +18,6 @@ public class meleeEnemy : Enemy
         abilityCooldown = Random.Range(cooldownMin, cooldownMax);
         abilityCast = castDuration;
         // attackObj.SetActive(true);
-        Debug.Log("attacked");
     }
     protected void setAttackRendColor(float value)
     {
