@@ -85232,11 +85232,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 714677047494085491, guid: 578592e729bcfc940a44551233eb4060, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 1.0861142
+      value: 1.0859375
       objectReference: {fileID: 0}
     - target: {fileID: 714677047494085491, guid: 578592e729bcfc940a44551233eb4060, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 0.95703125
+      objectReference: {fileID: 0}
+    - target: {fileID: 3336040056114772104, guid: 578592e729bcfc940a44551233eb4060, type: 3}
+      propertyPath: anim
+      value: 
+      objectReference: {fileID: 936103940}
+    - target: {fileID: 3336040056114772104, guid: 578592e729bcfc940a44551233eb4060, type: 3}
+      propertyPath: moveDebuf
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3336040056114772105, guid: 578592e729bcfc940a44551233eb4060, type: 3}
       propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -85360,7 +85368,7 @@ TilemapCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -85512,9 +85520,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3fe15475e900c948a3af916893ca557, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tiles: []
-  movementSpeed: 0
-  damage: 0
+  tiles:
+  - tile: {fileID: 11400000, guid: df7bbf0f77f4794489b3f06c36264cbf, type: 2}
+    effect:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11500000, guid: a3fe15475e900c948a3af916893ca557, type: 3}
+          m_TargetAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_MethodName: set_name
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: SpeedDebuf
+            m_BoolArgument: 0
+          m_CallState: 2
+  - tile: {fileID: 11400000, guid: e89e0f5e4d0e7514bbf0282aa3fac725, type: 2}
+    effect:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11500000, guid: a3fe15475e900c948a3af916893ca557, type: 3}
+          m_TargetAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_MethodName: set_name
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: DamagePlayer
+            m_BoolArgument: 0
+          m_CallState: 2
+  hazardMap: {fileID: 1665236860}
 --- !u!1 &1824243072
 GameObject:
   m_ObjectHideFlags: 0
@@ -85828,6 +85867,14 @@ PrefabInstance:
     - target: {fileID: 714677047494085491, guid: 578592e729bcfc940a44551233eb4060, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 0.95703125
+      objectReference: {fileID: 0}
+    - target: {fileID: 3336040056114772104, guid: 578592e729bcfc940a44551233eb4060, type: 3}
+      propertyPath: anim
+      value: 
+      objectReference: {fileID: 912810360}
+    - target: {fileID: 3336040056114772104, guid: 578592e729bcfc940a44551233eb4060, type: 3}
+      propertyPath: moveDebuf
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3336040056114772105, guid: 578592e729bcfc940a44551233eb4060, type: 3}
       propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
