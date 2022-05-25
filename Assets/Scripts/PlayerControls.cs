@@ -8,6 +8,9 @@ public class PlayerControls : MonoBehaviour
     [SerializeField]
     private float moveSpeed;
 
+    [SerializeField]
+    private float moveDebuf;
+
     private Rigidbody2D rb;
 
     private bool isBeingTurned;
@@ -19,6 +22,12 @@ public class PlayerControls : MonoBehaviour
     [SerializeField] private Animator anim;
 
     private float angleIdle;
+
+    private float timerStart, timerEnd;
+
+    private bool isStunned;
+
+    private float stunTimer;
 
     // index 0 - idle hand; index 1 = weapon hand
     [SerializeField] private Transform[] hands;
@@ -67,6 +76,8 @@ public class PlayerControls : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         cam = Camera.main;
         vs = cam.GetComponent<VoronoiSplit>();
+        timerEnd = 3.0f;
+        stunTimer = 3.0f;
         //anim = GetComponent<Animator>();
         //hands = this.gameObject.transform.GetChild(1);
 
@@ -99,7 +110,7 @@ public class PlayerControls : MonoBehaviour
         }
         Animate();
 
-
+        timerEnd += Time.deltaTime;
 
 
 
@@ -224,9 +235,23 @@ public class PlayerControls : MonoBehaviour
     // }
     void Move()
     {
-        rb.velocity =
-            new Vector2(moveDirection.x * moveSpeed,
-                moveDirection.y * moveSpeed);
+        if (timerEnd - timerStart >= stunTimer)
+        {
+            rb.velocity =
+                new Vector2(moveDirection.x * moveSpeed,
+                    moveDirection.y * moveSpeed);
+            isStunned = false;
+        } else if (isStunned)
+        {
+            // player stepped on ketchup glob and cannot move for stunTimer seconds
+            rb.velocity = new Vector2(0.0f, 0.0f);
+        } else
+        {
+            // player stepped on mustard glob and is slower by a factor of moveDebuf
+            rb.velocity =
+                new Vector2(moveDirection.x * moveSpeed * moveDebuf,
+                    moveDirection.y * moveSpeed * moveDebuf);
+        }
     }
 
     //turn the player in the direction of the Vector2 faceDirection
@@ -271,6 +296,47 @@ public class PlayerControls : MonoBehaviour
             anim.SetFloat("angle", angleIdle - 90);
         }
         anim.SetBool("isMoving", movement);
+    }
+
+    public void SetSlowdown()
+    {
+        timerStart = timerEnd;
+        StartCoroutine(HitAnimation());
+    }
+
+    public void SetStun()
+    {
+        timerStart = timerEnd;
+        isStunned = true;
+        StartCoroutine(HitAnimation());
+    }
+
+    IEnumerator HitAnimation()
+    {
+        // loops decrease then increase alpha channel in order to create a blinking effect
+        // when hitting a hazard; can potentially extend this to getting hit by enemies
+        // if you replace stunTimer with a parameter
+        Color tmp = this.GetComponent<SpriteRenderer>().color;
+        while (timerEnd - timerStart < stunTimer)
+        {
+            for (float alpha = 1f; alpha >= 0f; alpha -= 0.1f)
+            {
+                tmp.a = alpha;
+                this.GetComponent<SpriteRenderer>().color = tmp;
+                yield return new WaitForSeconds(0.05f);
+            }
+            for (float alpha = 0; alpha <= 1f; alpha += 0.1f)
+            {
+                tmp.a = alpha;
+                this.GetComponent<SpriteRenderer>().color = tmp;
+                yield return new WaitForSeconds(0.05f);
+            }
+        }
+
+        // reset alpha to normal and quit the coroutine
+        tmp.a = 1f;
+        this.GetComponent<SpriteRenderer>().color = tmp;
+        yield break;
     }
 
     private void OnTriggerEnter2D(Collider2D col)
