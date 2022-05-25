@@ -27,8 +27,6 @@ public class PlayerControls : MonoBehaviour
 
     private bool isStunned;
 
-    private bool isFading;
-
     private float stunTimer;
 
     // index 0 - idle hand; index 1 = weapon hand
@@ -80,7 +78,6 @@ public class PlayerControls : MonoBehaviour
         vs = cam.GetComponent<VoronoiSplit>();
         timerEnd = 3.0f;
         stunTimer = 3.0f;
-        isFading = true;
         //anim = GetComponent<Animator>();
         //hands = this.gameObject.transform.GetChild(1);
 
@@ -316,37 +313,27 @@ public class PlayerControls : MonoBehaviour
 
     IEnumerator HitAnimation()
     {
-        // isFading is a flag that flips when to raise or decrease the alpha channel
-        // in order to create a blinking effect when hitting a hazard; can potentially extend this
-        // to getting hit by enemies if you replace stunTimer with a parameter
-        Color tmp;
+        // loops decrease then increase alpha channel in order to create a blinking effect
+        // when hitting a hazard; can potentially extend this to getting hit by enemies
+        // if you replace stunTimer with a parameter
+        Color tmp = this.GetComponent<SpriteRenderer>().color;
         while (timerEnd - timerStart < stunTimer)
         {
-            tmp = this.GetComponent<SpriteRenderer>().color;
-            if (isFading)
+            for (float alpha = 1f; alpha >= 0f; alpha -= 0.1f)
             {
-                for (float alpha = 1f; alpha >= 0f; alpha -= 0.1f)
-                {
-                    tmp.a = alpha;
-                    this.GetComponent<SpriteRenderer>().color = tmp;
-                    yield return new WaitForSeconds(0.05f);
-                }
-                isFading = false;
+                tmp.a = alpha;
+                this.GetComponent<SpriteRenderer>().color = tmp;
+                yield return new WaitForSeconds(0.05f);
             }
-            else
+            for (float alpha = 0; alpha <= 1f; alpha += 0.1f)
             {
-                for (float alpha = 0; alpha <= 1f; alpha += 0.1f)
-                {
-                    tmp.a = alpha;
-                    this.GetComponent<SpriteRenderer>().color = tmp;
-                    yield return new WaitForSeconds(0.05f);
-                }
-                isFading = true;
+                tmp.a = alpha;
+                this.GetComponent<SpriteRenderer>().color = tmp;
+                yield return new WaitForSeconds(0.05f);
             }
         }
 
         // reset alpha to normal and quit the coroutine
-        tmp = this.GetComponent<SpriteRenderer>().color;
         tmp.a = 1f;
         this.GetComponent<SpriteRenderer>().color = tmp;
         yield break;

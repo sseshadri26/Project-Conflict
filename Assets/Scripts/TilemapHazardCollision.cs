@@ -11,6 +11,14 @@ public class TilemapHazardCollision : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D col)
     {
+        // make an exception for enemies so they can move past the hazards
+        // this code only applies to the player anyways
+        if (col.gameObject.tag == "enemy")
+        {
+            Physics2D.IgnoreCollision(col.collider, this.GetComponent<Collider2D>());
+            return;
+        }
+
         Debug.Log("collided with something");
         var grid = hazardMap.layoutGrid;
 
