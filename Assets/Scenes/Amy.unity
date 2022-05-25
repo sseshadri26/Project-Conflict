@@ -34156,9 +34156,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3fe15475e900c948a3af916893ca557, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tiles: []
-  movementSpeed: 0
-  damage: 0
+  hazardMap: {fileID: 0}
+  pc: {fileID: 0}
 --- !u!19719996 &997275478
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -34471,6 +34470,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2178550086036042974, guid: 0f1ecc79aad65dd489ffcf6d48246f95, type: 3}
+      propertyPath: health
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2178550086036042974, guid: 0f1ecc79aad65dd489ffcf6d48246f95, type: 3}
       propertyPath: spawnedTile
       value: 
       objectReference: {fileID: 11400000, guid: df7bbf0f77f4794489b3f06c36264cbf, type: 2}
@@ -34478,6 +34481,10 @@ PrefabInstance:
       propertyPath: hazardTilemap
       value: 
       objectReference: {fileID: 997275480}
+    - target: {fileID: 2178550086036042974, guid: 0f1ecc79aad65dd489ffcf6d48246f95, type: 3}
+      propertyPath: stunAnimationTime
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5223431895562593643, guid: 0f1ecc79aad65dd489ffcf6d48246f95, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -34556,10 +34563,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2178550086036042974, guid: 0f1ecc79aad65dd489ffcf6d48246f95, type: 3}
-      propertyPath: spawnedTile
-      value: 
-      objectReference: {fileID: 11400000, guid: e89e0f5e4d0e7514bbf0282aa3fac725, type: 2}
     - target: {fileID: 2178550086036042974, guid: 0f1ecc79aad65dd489ffcf6d48246f95, type: 3}
       propertyPath: hazardTilemap
       value: 

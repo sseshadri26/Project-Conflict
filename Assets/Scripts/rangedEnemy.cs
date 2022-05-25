@@ -57,6 +57,5 @@ public class rangedEnemy : Enemy
     // Called at the end of the attack animation
     public void resetAbilityCooldown() {
         abilityCooldown = Random.Range(100, 200);
-        Debug.Log("reset");
     }
 }

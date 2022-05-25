@@ -96,17 +96,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51d7fd2b812bcf4ea7d989e71b3653c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
+  health: 100
   speed: 0.025
   rotationSpeed: 7
   targetPlayerTrfm: {fileID: 0}
   hasTargetPlayer: 0
-  deathFX: {fileID: 0}
+  stunAnimationRepetitions: 1
   inRangeOfPlayer: 7
+  maxChaseDistance: 15
   memoryTime: 10
   projectile: {fileID: 1875503230918823877, guid: 99a4ac0da436ac848b9bec29926fb4b2, type: 3}
   hazardTilemap: {fileID: 0}
-  spawnedTile: {fileID: 0}
+  spawnedTile: {fileID: 11400000, guid: e89e0f5e4d0e7514bbf0282aa3fac725, type: 2}
 --- !u!114 &1976723023820511935
 MonoBehaviour:
   m_ObjectHideFlags: 0
