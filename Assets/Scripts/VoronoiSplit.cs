@@ -396,10 +396,12 @@ public class VoronoiSplit : MonoBehaviour
         }
 
         //print screen positions
+        /*
         Debug
             .LogFormat("Screen positions: {0}, {1}",
             screenPositions[0],
             screenPositions[1]);
+        */
 
         MaskRenderer.enabled = false;
         Shader

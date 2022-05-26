@@ -37,12 +37,13 @@ public class slashingEnemy : meleeEnemy
     }
     void doAbilityCycle()
     {
-        if (abilityCooldown > 0)
+        if (abilityCooldown > 0 || tooFar)
         {
             abilityCooldown--;
         }
         else
         {
+            // Attack functions are called through animation events in front facing attack animation
             animator.SetTrigger("isAttacking");
             // temporarily increase ability cooldown to prevent animator from triggering twice
             abilityCooldown = 1000;

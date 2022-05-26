@@ -6,13 +6,12 @@ using Pathfinding;
 public class Enemy : MonoBehaviour
 {
 
-    [SerializeField] protected int health;
+    [SerializeField] protected int health = 100;
     [SerializeField] protected float speed = 0.05f;
     [SerializeField] protected float rotationSpeed = 7f;
     private static Transform playerOneTrfm, playerTwoTrfm;
     [SerializeField] protected Transform targetPlayerTrfm;
     [SerializeField] protected bool hasTargetPlayer = false;
-    [SerializeField] GameObject deathFX;
     protected int abilityCooldown, abilityCast, stunTmr;
 
     int walkTmr, walkThreshold, turnTmr;
@@ -31,17 +30,21 @@ public class Enemy : MonoBehaviour
 
     // Animator variables
     protected Animator animator;
+    private SpriteRenderer sprite;
     protected bool isStill; // set to false if enemy walks
+    [SerializeField] int stunAnimationRepetitions = 1;
 
     // Pathfinding variables
     [SerializeField] protected float inRangeOfPlayer = 1f;    // How far from player should enemy stop?
+    [SerializeField] protected float maxChaseDistance = 15f;    // How far before enemy stops chasing player?
     private float nextWaypointDistance = .5f;
     private Path path;
     private int currentWaypoint = 0;
     private bool reachedEndOfPath = false;
     private Seeker seeker;
+    protected bool tooFar = false;
     // Path rememberance variables
-    [SerializeField] protected float memoryTime = 10f;      // How long should enemy remember and chase player?
+    [SerializeField] protected float memoryTime = 8f;      // How long should enemy remember and chase player?
     private bool coroutineRunning = false;
 
     // Start is called before the first frame update
@@ -52,6 +55,7 @@ public class Enemy : MonoBehaviour
         seeker = GetComponent<Seeker>();
         animator = GetComponentInChildren<Animator>();
         health *= 2;
+        sprite = this.transform.Find("sprite").GetComponent<SpriteRenderer>();
     }
 
     // Start calculating enemy's path to player
@@ -77,6 +81,11 @@ public class Enemy : MonoBehaviour
     protected void EnemyFixedUpdate()
     {
         isStill = true;
+        if (path == null || path.GetTotalLength() > maxChaseDistance) {
+            tooFar = true;
+        } else {
+            tooFar = false;
+        }
         UpdatePath();
         if (!hasTargetPlayer)
         {
@@ -94,7 +103,7 @@ public class Enemy : MonoBehaviour
     }
 
     protected void moveToPlayer(float thisSpeed) {
-        if (path == null)
+        if (path == null || path.GetTotalLength() > maxChaseDistance)
             return;
         
         // Reached player?
@@ -179,7 +188,6 @@ public class Enemy : MonoBehaviour
                 targetPlayerTrfm = playerOneTrfm;
                 targetedPlayer = p1;
                 hasTargetPlayer = true;
-                // Debug.Log("test");
 
                 if (coroutineRunning) {
                     StopCoroutine(losePlayerTarget());
@@ -267,6 +275,37 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    // Copied and modified from player's hit animation
+    private IEnumerator HitAnimation()
+    {
+        // loops decrease then increase alpha channel in order to create a blinking effect
+        // when hitting a hazard; can potentially extend this to getting hit by enemies
+        // if you replace stunTimer with a parameter
+        Color tmp = sprite.color;
+        int timeLeft = stunAnimationRepetitions;
+        while (timeLeft > 0)
+        {
+            for (float alpha = 1f; alpha >= 0f; alpha -= 0.1f)
+            {
+                tmp.a = alpha;
+                sprite.color = tmp;
+                yield return new WaitForSeconds(0.01f);
+            }
+            for (float alpha = 0; alpha <= 1f; alpha += 0.1f)
+            {
+                tmp.a = alpha;
+                sprite.color = tmp;
+                yield return new WaitForSeconds(0.01f);
+            }
+            timeLeft--;
+        }
+
+        // reset alpha to normal and quit the coroutine
+        tmp.a = 1f;
+        sprite.color = tmp;
+        yield break;
+    }
+
 
 
 
@@ -289,6 +328,9 @@ public class Enemy : MonoBehaviour
             Destroy(gameObject);
             return 0;
         }
+
+        // Enemy blinks a few times when damaged
+        StartCoroutine(HitAnimation());
         return health;
     }
 
