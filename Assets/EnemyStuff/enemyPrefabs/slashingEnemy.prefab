@@ -243,7 +243,7 @@ GameObject:
   - component: {fileID: 3332665754461304689}
   m_Layer: 0
   m_Name: slashingEnemy
-  m_TagString: Untagged
+  m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -328,8 +328,9 @@ MonoBehaviour:
   rotationSpeed: 7
   targetPlayerTrfm: {fileID: 0}
   hasTargetPlayer: 0
-  deathFX: {fileID: 0}
+  stunAnimationRepetitions: 1
   inRangeOfPlayer: 0.5
+  maxChaseDistance: 15
   memoryTime: 10
   attackObj: {fileID: 5023089311095098827}
   attackRend: {fileID: 5023089311095098868}

@@ -79,14 +79,30 @@ public class weapon : MonoBehaviour
         return m_state == state.attachedP1 || m_state == state.attachedP2;
     }
 
+    public void Rotate(Vector2 direction)
+    {
+        if (spinAttacking == 0)
+        {
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            trfm.localEulerAngles = new Vector3(0, 0, angle - 90);
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject.layer == 6 && !inHand())
         {
+            // layer 6 = walls
             trfm.position += trfm.up * .5f;
             m_state = state.embedded;
             boxCol.enabled = true;
             exitFlight();
+        } else if (col.gameObject.layer == 7 && inFlight())
+        {
+            // layer 7 = player; this mistakenly triggers for the player that threw the fork too
+            // also this doesn't address weaponEquipped in PlayerControls.cs
+            Debug.Log("hit another player");
+            //PickUp(col.gameObject.GetComponent<PlayerControls>());
         }
     }
 }

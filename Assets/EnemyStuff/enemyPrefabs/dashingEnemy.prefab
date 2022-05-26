@@ -213,7 +213,7 @@ GameObject:
   - component: {fileID: -5098157970833283086}
   m_Layer: 0
   m_Name: dashingEnemy
-  m_TagString: Untagged
+  m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -298,8 +298,9 @@ MonoBehaviour:
   rotationSpeed: 7
   targetPlayerTrfm: {fileID: 0}
   hasTargetPlayer: 0
-  deathFX: {fileID: 0}
+  stunAnimationRepetitions: 1
   inRangeOfPlayer: 1
+  maxChaseDistance: 15
   memoryTime: 10
   attackObj: {fileID: 4695263840728414513}
   attackRend: {fileID: 1598181710892405193}
