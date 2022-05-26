@@ -342,7 +342,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 815251264}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.93, y: -3.17, z: -437.25616}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -358,6 +358,10 @@ PrefabInstance:
     - target: {fileID: 3336040056114772116, guid: 578592e729bcfc940a44551233eb4060, type: 3}
       propertyPath: m_Name
       value: PlayerTemp (01)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3336040056114772116, guid: 578592e729bcfc940a44551233eb4060, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3336040056114772118, guid: 578592e729bcfc940a44551233eb4060, type: 3}
       propertyPath: m_RootOrder
@@ -429,7 +433,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2009080072}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.39, y: -3.44, z: -437.25616}
+  m_LocalPosition: {x: 3.39, y: -3.44, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -451,7 +455,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2010618262
 Transform:
   m_ObjectHideFlags: 0
@@ -478,5 +482,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1d208c5052a2774b84ed5834a570728, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerSpawns: []
-  playerPrefab: {fileID: 0}
+  PlayerSpawns:
+  - {fileID: 6105838034547769734, guid: ec54f525a875f744eb87b6a0bb25531e, type: 3}
+  - {fileID: 90330977020319363, guid: 37e6b9b546d43334e8646019c93bdeb2, type: 3}
+  playerPrefabs:
+  - {fileID: 6105838034547769732, guid: 3dafabbdf2c2e484cb7e0f46ee6c070f, type: 3}
+  - {fileID: 90330977020319361, guid: b081df34898ca3a4ebb69dc91235d926, type: 3}

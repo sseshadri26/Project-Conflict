@@ -4,19 +4,20 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+
 using static UnityEngine.InputSystem.InputAction;
 
 public class PlayerInputHandler : MonoBehaviour
 {
     private PlayerConfiguration playerConfig;
 
-    private CharacterMover mover;
+    private PlayerControls playerControls;
 
     private ProjectConflictControls controls;
 
     private void Awake()
     {
-        mover = GetComponent<CharacterMover>();
+        playerControls = GetComponent<PlayerControls>();
         controls = new ProjectConflictControls();
     }
 
@@ -28,14 +29,38 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void Input_onActionTriggered(CallbackContext obj)
     {
+        //print the action name
+        Debug.Log(obj.action.name);
+
         if (obj.action.name == controls.Player.Move.name)
         {
-            OnMove (obj);
+            OnMove(obj);
+        }
+
+        if (obj.action.name == controls.Player.Look.name)
+        {
+            OnLook(obj);
+        }
+
+        if (obj.action.name == controls.Player.Fire.name)
+        {
+            OnAttack(obj);
         }
     }
 
     public void OnMove(CallbackContext context)
     {
-        if (mover != null) mover.SetInputVector(context.ReadValue<Vector2>());
+        if (playerControls != null) playerControls.OnMove(context);
+    }
+
+
+    public void OnLook(CallbackContext context)
+    {
+        if (playerControls != null) playerControls.OnFaceDirection(context);
+    }
+
+    public void OnAttack(CallbackContext context)
+    {
+        if (playerControls != null) playerControls.OnFire(context);
     }
 }

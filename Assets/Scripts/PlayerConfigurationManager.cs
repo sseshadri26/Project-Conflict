@@ -20,14 +20,14 @@ public class PlayerConfigurationManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad (Instance);
+            DontDestroyOnLoad(Instance);
             playerConfigurations = new List<PlayerConfiguration>();
         }
         else
         {
             Debug
                 .LogError("Singleton - Trying to create a second instance of PlayerConfigurationManager");
-            Destroy (gameObject);
+            Destroy(gameObject);
         }
     }
 
@@ -35,7 +35,7 @@ public class PlayerConfigurationManager : MonoBehaviour
     // public void SetPlayerColor(int playerIndex, Material color)
     // {
     //     playerConfigurations[playerIndex].PlayerMaterial = color;
-    // }
+    // SwitchCurrentActionMap
     // ReadyPlayer takes in a player index and sets the player's ready status to true
     public void ReadyPlayer(int playerIndex)
     {
@@ -52,6 +52,11 @@ public class PlayerConfigurationManager : MonoBehaviour
         {
             // GameManager.Instance.StartGame();
             //Load Local Co-Op Scene
+            playerConfigurations[0].Input.SwitchCurrentActionMap("Player");
+            playerConfigurations[1].Input.SwitchCurrentActionMap("Player");
+            //for all playerConfigurations, switch current action map to player
+            playerConfigurations.ForEach(pc => pc.Input.SwitchCurrentActionMap("Player"));
+
             SceneManager.LoadScene("Local Co-Op");
         }
     }
@@ -59,19 +64,19 @@ public class PlayerConfigurationManager : MonoBehaviour
     //DisconnectPlayer removes a player from playerConfigurations given the playerIndex
     public void DisconnectPlayer(int playerIndex)
     {
-        playerConfigurations.RemoveAt (playerIndex);
+        playerConfigurations.RemoveAt(playerIndex);
     }
 
     //HandlePlayerJoin takes in playerinput pi. adds pi to the list of players
     public void HandlePlayerJoin(PlayerInput pi)
     {
         Debug.Log("Player " + pi.playerIndex + " joined");
-
+        //ReadyPlayer(pi.playerIndex);
         //check that we havent already added this player
         if (!playerConfigurations.Any(p => p.PlayerIndex == pi.playerIndex))
         {
             //the player is now a child of this object
-            pi.transform.SetParent (transform);
+            pi.transform.SetParent(transform);
             playerConfigurations.Add(new PlayerConfiguration(pi));
             // pi.SwitchCurrentActionMap("UI");
         }
