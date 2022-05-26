@@ -25,4 +25,8 @@ public class meleeEnemy : Enemy
         attackCol.a = value;
         attackRend.color = attackCol;
     }
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        TriggerEnter(col);
+    }
 }

@@ -188,6 +188,7 @@ MonoBehaviour:
   throwBlurBack: {fileID: 8486309188697041598}
   trfm: {fileID: 4832626096947536964}
   spd: 0.8
+  boxCol: {fileID: 277976804284002483}
 --- !u!61 &277976804284002483
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -325,11 +326,11 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7140173967677490789}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 1
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2

@@ -48,4 +48,9 @@ public class slashingEnemy : meleeEnemy
             abilityCooldown = 1000;
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        TriggerEnter(col);
+    }
 }

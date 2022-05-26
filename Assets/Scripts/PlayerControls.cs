@@ -131,6 +131,7 @@ public class PlayerControls : MonoBehaviour
 
     bool buttonDown = false;
     [SerializeField] bool throwQued;
+    [SerializeField] GameObject meleeAttack;
     int doubleClick;
     int spinAttacking;
     public void OnFire(InputAction.CallbackContext context)
@@ -170,10 +171,12 @@ public class PlayerControls : MonoBehaviour
     }
     public bool doSpinAttack()
     {
-        if (spinAttacking < 1)
+        if (spinAttacking < 1 && weaponEquipped)
         {
             spinAttacking = 15;
             m_weapon.doSpinAttack();
+            Debug.Log("SPIN");
+            Instantiate(meleeAttack, getPos(isP1).position, Quaternion.identity);
             return true;
         }
         return false;

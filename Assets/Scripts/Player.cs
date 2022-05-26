@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
 	KeyCode up, down, left, right;
 	Transform trfm;
 
+	[SerializeField] GameObject atkObj;
 
 	public HealthBar healthBar;
 

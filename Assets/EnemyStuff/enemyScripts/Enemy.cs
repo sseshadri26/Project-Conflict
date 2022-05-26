@@ -51,6 +51,7 @@ public class Enemy : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         seeker = GetComponent<Seeker>();
         animator = GetComponentInChildren<Animator>();
+        health *= 2;
     }
 
     // Start calculating enemy's path to player
@@ -262,7 +263,7 @@ public class Enemy : MonoBehaviour
     {
         if (col.gameObject.tag == "fork")
         {
-
+            
         }
     }
 
@@ -283,7 +284,7 @@ public class Enemy : MonoBehaviour
     public int takeDamage(int amount)
     {
         health -= amount;
-        if (health < 0)
+        if (health < 1)
         {
             Destroy(gameObject);
             return 0;
@@ -311,5 +312,13 @@ public class Enemy : MonoBehaviour
         trfm.rotation = currentRotation;
 
         knockbackForce += power;
+    }
+
+    public void TriggerEnter(Collider2D col)
+    {
+        if (col.gameObject.layer == 8)
+        {
+            takeDamage(1);
+        }
     }
 }

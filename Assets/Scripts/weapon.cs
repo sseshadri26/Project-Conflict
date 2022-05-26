@@ -25,6 +25,7 @@ public class weapon : MonoBehaviour
         trfm.position = trfm.parent.position;
         trfm.rotation = trfm.parent.rotation;
         exitFlight();
+        boxCol.enabled = false;
 
         return true;
     }
@@ -46,6 +47,7 @@ public class weapon : MonoBehaviour
     [SerializeField] GameObject spinAttack, throwBlurFront, throwBlurBack;
     [SerializeField] Transform trfm;
     [SerializeField] float spd;
+    [SerializeField] BoxCollider2D boxCol;
     int pickUpDelay;
     private void FixedUpdate()
     {
@@ -81,7 +83,9 @@ public class weapon : MonoBehaviour
     {
         if (col.gameObject.layer == 6 && !inHand())
         {
+            trfm.position += trfm.up * .5f;
             m_state = state.embedded;
+            boxCol.enabled = true;
             exitFlight();
         }
     }
