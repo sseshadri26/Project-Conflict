@@ -30,7 +30,7 @@ public class PlayerInputHandler : MonoBehaviour
     private void Input_onActionTriggered(CallbackContext obj)
     {
         //print the action name
-        Debug.Log(obj.action.name);
+        //Debug.Log(obj.action.name);
 
         if (obj.action.name == controls.Player.Move.name)
         {

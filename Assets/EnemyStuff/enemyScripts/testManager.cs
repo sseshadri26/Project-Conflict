@@ -9,17 +9,19 @@ public class testManager : MonoBehaviour
 
     void Update()
     {
-        if (playerOneTrfm == null)
+        if (playerOneTrfm == null || playerOneTrfm.gameObject.name.Contains("Dummy"))
         {
             //find a "player 1" object in scene
-            playerOneTrfm = GameObject.Find("Player 1").transform;
+            playerOneTrfm = GameObject.Find("Player 1(Clone)").transform;
         }
 
 
-        if (playerTwoTrfm == null)
+        if (playerTwoTrfm == null || playerTwoTrfm.gameObject.name.Contains("Dummy"))
         {
-            playerTwoTrfm = GameObject.Find("Player 2").transform;
+            //find a "player 2" object in scene
+            playerTwoTrfm = GameObject.Find("Player 2(Clone)").transform;
         }
+
 
         if (playerTwoTrfm != null && playerOneTrfm != null)
         {

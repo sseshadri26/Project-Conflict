@@ -20,7 +20,7 @@ public class LevelInitializer : MonoBehaviour
                 .Instance
                 .GetPlayerConfigurations()
                 .ToArray();
-        for (int i = 0; i < playerConfigurations.Length; i++)
+        for (int i = 0; i < 2; i++)
         {
             var player =
                 Instantiate(playerPrefabs[i],
