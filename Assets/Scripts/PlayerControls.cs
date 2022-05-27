@@ -123,7 +123,7 @@ public class PlayerControls : MonoBehaviour
         {
             if (throwQued)
             {
-                ThrowFork();
+                //ThrowFork();
                 throwQued = false;
             }
         }

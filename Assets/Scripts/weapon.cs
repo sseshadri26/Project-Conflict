@@ -93,7 +93,7 @@ public class weapon : MonoBehaviour
         if (col.gameObject.layer == 6 && !inHand())
         {
             // layer 6 = walls
-            trfm.position += trfm.up * .5f;
+            //trfm.position += trfm.up * -0.8f;
             m_state = state.embedded;
             boxCol.enabled = true;
             exitFlight();
