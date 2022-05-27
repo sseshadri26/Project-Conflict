@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/PlayerMelee.unity
     guid: 6f6e927545f11184da20967a9d844fcf
+  - enabled: 1
+    path: Assets/Scenes/Victory Screen Blue.unity
+    guid: 09fd9f3c03eb21a478094ed79411a75c
+  - enabled: 1
+    path: Assets/Scenes/Victory Screen Orange.unity
+    guid: 0283240b5e983ba4d89b4d564a627e29
   m_configObjects: {}
