@@ -338,6 +338,18 @@ public class PlayerControls : MonoBehaviour
         StartCoroutine(HitAnimation());
     }
 
+    private void EnemyDamage()
+    {
+        Debug.Log("oof");
+        timerStart = timerEnd;
+        isStunned = true;
+        StartCoroutine(HitAnimation());
+        if (weaponEquipped)
+        {
+            weaponEquipped = m_weapon.Drop();
+        }
+    }
+
     IEnumerator HitAnimation()
     {
         // loops decrease then increase alpha channel in order to create a blinking effect
@@ -369,10 +381,35 @@ public class PlayerControls : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D col)
     {
         //Debug.Log(col.gameObject.tag);
-        if (col.gameObject.tag == "weapon")
+        if (col.gameObject.tag == "weapon" && (timerEnd - timerStart) > stunTimer)
         {
-            Debug.Log("epic catch");
             weaponEquipped = m_weapon.PickUp(this);
+        }
+        else if (col.gameObject.tag == "enemy" && !isStunned)
+        {
+            if (col.gameObject.GetComponent<dashingEnemy>())
+            {
+                if (col.gameObject.GetComponent<dashingEnemy>().abilityStep)
+                {
+                    //Debug.Log("dash");
+                    EnemyDamage();
+                }
+            }
+            else if (col.gameObject.GetComponent<slashingEnemy>())
+            {
+                if (col.gameObject.GetComponent<Enemy>().abilityCast > 0)
+                {
+                    //Debug.Log("slash");
+                    EnemyDamage();
+                }
+            }
+            else if (col.gameObject.GetComponent<thunderboltBullet>())
+            {
+                //Debug.Log("projectile");
+                EnemyDamage();
+                Destroy(col.gameObject);
+
+            }
         }
         if (col.gameObject.GetComponent<tinySpinAttack>())
         {

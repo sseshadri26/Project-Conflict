@@ -14,6 +14,15 @@ public class weapon : MonoBehaviour
         throwBlurFront.SetActive(true);
         return true;
     }
+
+    public bool Drop()
+    {
+        trfm.parent = null;
+        boxCol.enabled = true;
+        m_state = state.embedded;
+        return false;
+    }
+
     public bool PickUp(PlayerControls m_Player)
     {
         if (inHand()) return false;

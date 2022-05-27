@@ -12,7 +12,8 @@ public class Enemy : MonoBehaviour
     private static Transform playerOneTrfm, playerTwoTrfm;
     [SerializeField] protected Transform targetPlayerTrfm;
     [SerializeField] protected bool hasTargetPlayer = false;
-    protected int abilityCooldown, abilityCast, stunTmr;
+    protected int abilityCooldown, stunTmr;
+    public int abilityCast;
 
     int walkTmr, walkThreshold, turnTmr;
     bool turnDirection;

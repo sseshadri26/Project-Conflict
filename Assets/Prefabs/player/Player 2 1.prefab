@@ -457,14 +457,16 @@ MonoBehaviour:
   hands:
   - {fileID: 8350717601007927639}
   - {fileID: 8350717602422562517}
-  sprite: {fileID: 0}
+  sprite: {fileID: 8350717601926857784}
   weaponEquipped: 0
   isP1: 0
   m_weapon: {fileID: 0}
   attachPoint: {fileID: 8350717602707581383}
   m_camera: {fileID: 0}
   throwQued: 0
-  meleeAttack: {fileID: 2012712726531664011, guid: 6c1e5652df99485499224fa6afafa1a5, type: 3}
+  thrustObj: {fileID: 0}
+  tinySpinObj: {fileID: 0}
+  spinObj: {fileID: 0}
 --- !u!61 &8350717602695682538
 BoxCollider2D:
   m_ObjectHideFlags: 0

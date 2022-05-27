@@ -8,7 +8,7 @@ public class dashingEnemy : meleeEnemy
     [SerializeField] protected AnimationCurve stepCurve;    // Custom curve to control forward steps
     [SerializeField] protected AnimationCurve offsetCurve;    // Custom curve to control upward offset during steps
     [SerializeField] protected float step_period_time = 2.0f;
-    bool abilityStep = false;   // True if current step uses ability
+    public bool abilityStep = false;   // True if current step uses ability
     bool animationTriggered = false; // Used to ensure animation only triggers once
 
     private void Start()
