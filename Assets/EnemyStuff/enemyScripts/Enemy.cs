@@ -341,9 +341,15 @@ public class Enemy : MonoBehaviour
         playerTwoTrfm = playerTwoTransform;
     }
 
+    public int setHealth(int h)
+    {
+        health = h;
+        return health;
+    }
+
     public int takeDamage(int amount, GameObject col)
     {
-        health -= amount * 10;
+        health -= amount;
         if (health < 1)
         {
             Debug.Log(col.gameObject.transform.root.gameObject.name);
@@ -396,7 +402,36 @@ public class Enemy : MonoBehaviour
 
     public void takeDamageFromSource(GameObject col)
     {
-        takeDamage(1, col);
+        Debug.Log(col.name);
+
+        //tinyspinattack
+        if (col.name.Contains("tinySpinSttackObj"))
+        {
+            takeDamage(1, col);
+        }
+
+        //fork stab
+        else if (col.name.Contains("thrustAttackObj"))
+        {
+            takeDamage(2, col);
+        }
+
+        //fork spin
+        else if (col.name == "spinSttackObj")
+        {
+            takeDamage(5, col);
+        }
+
+        //fork throw
+        else if (col.name.Contains("throwBlur"))
+        {
+            takeDamage(10, col);
+        }
+        else
+        {
+            takeDamage(1, col);
+        }
+
     }
 
     public bool stun(float duration)

@@ -240,7 +240,6 @@ GameObject:
   - component: {fileID: 7265238647944492529}
   - component: {fileID: 7265238647944492535}
   - component: {fileID: 2132185446123619974}
-  - component: {fileID: 3332665754461304689}
   m_Layer: 0
   m_Name: slashingEnemy
   m_TagString: enemy
@@ -323,11 +322,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9278245b502d564ba84069359c26c07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 2
+  health: 10
   speed: 0.05
   rotationSpeed: 7
   targetPlayerTrfm: {fileID: 0}
   hasTargetPlayer: 0
+  abilityCast: 0
   stunAnimationRepetitions: 1
   inRangeOfPlayer: 0.5
   maxChaseDistance: 15
@@ -362,19 +362,3 @@ MonoBehaviour:
   tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   graphMask:
     value: -1
---- !u!58 &3332665754461304689
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7265238647944492532}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.15064985}
-  serializedVersion: 2
-  m_Radius: 1.3493502

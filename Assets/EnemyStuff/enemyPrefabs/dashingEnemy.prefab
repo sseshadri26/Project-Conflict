@@ -210,7 +210,6 @@ GameObject:
   - component: {fileID: 8294057371419047414}
   - component: {fileID: 8294057371419047415}
   - component: {fileID: 3032381773001112807}
-  - component: {fileID: -5098157970833283086}
   m_Layer: 0
   m_Name: dashingEnemy
   m_TagString: enemy
@@ -293,11 +292,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa252a0c48687344fb770959f80d421e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5
+  health: 20
   speed: 0.05
   rotationSpeed: 7
   targetPlayerTrfm: {fileID: 0}
   hasTargetPlayer: 0
+  abilityCast: 0
   stunAnimationRepetitions: 1
   inRangeOfPlayer: 1
   maxChaseDistance: 15
@@ -407,6 +407,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   step_period_time: 2
+  abilityStep: 0
 --- !u!114 &3032381773001112807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -435,19 +436,3 @@ MonoBehaviour:
   tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   graphMask:
     value: -1
---- !u!58 &-5098157970833283086
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8294057371419047411}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.15064985}
-  serializedVersion: 2
-  m_Radius: 1.3493502

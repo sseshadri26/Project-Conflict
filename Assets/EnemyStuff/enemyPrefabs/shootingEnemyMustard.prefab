@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 2178550086036042965}
   - component: {fileID: 2178550086036042974}
   - component: {fileID: 1976723023820511935}
-  - component: {fileID: 4116750383082373062}
   m_Layer: 0
   m_Name: shootingEnemyMustard
   m_TagString: enemy
@@ -30,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 2178550086036042960}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 10.51, y: 0.16000006, z: 0}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_Children:
   - {fileID: 870080196859297951}
   - {fileID: 6319401823620344617}
@@ -96,7 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51d7fd2b812bcf4ea7d989e71b3653c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  health: 15
   speed: 0.025
   rotationSpeed: 7
   targetPlayerTrfm: {fileID: 0}
@@ -108,7 +107,7 @@ MonoBehaviour:
   memoryTime: 10
   projectile: {fileID: 1875503230918823877, guid: 2b589ce6fac5b9f40bc000dbe9523268, type: 3}
   hazardBlob: {fileID: 1875503230918823877, guid: 4a384ce698e4f63459c866958d1a4fdb, type: 3}
-  hazardTilemap: {fileID: 5967557433831977902, guid: 71856c685c4e238428f4ffa010a52431, type: 3}
+  hazardTilemap: {fileID: 0}
   spawnedTile: {fileID: 11400000, guid: df7bbf0f77f4794489b3f06c36264cbf, type: 2}
 --- !u!114 &1976723023820511935
 MonoBehaviour:
@@ -138,22 +137,6 @@ MonoBehaviour:
   tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   graphMask:
     value: -1
---- !u!58 &4116750383082373062
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2178550086036042960}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.75
 --- !u!1 &3173145927161296914
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 
 public class blobScript : MonoBehaviour
 {
-    Tilemap hazardTilemap;
+    public Tilemap hazardTilemap;
 
     [SerializeField]
     TileBase SpawnedTile;
@@ -32,6 +32,9 @@ public class blobScript : MonoBehaviour
         //then instantiate a splat
         startPos = transform.position;
         distance = Vector3.Distance(startPos, finalPos);
+
+        hazardTilemap = GameObject.Find("tilemap (trigger hazards)").GetComponent<Tilemap>();
+
 
     }
 
@@ -75,7 +78,13 @@ public class blobScript : MonoBehaviour
 
     public void setParams(Tilemap hazardTilemap, Vector3 finalPos)
     {
-        this.hazardTilemap = hazardTilemap;
+        //this.hazardTilemap = hazardTilemap;
         this.finalPos = finalPos;
+        if (!hazardTilemap)
+        {
+            //Debug.Log("hazardTilemap is null");
+            //find a tilemap named "tilemap (trigger hazards)"
+            //hazardTilemap = GameObject.Find("tilemap (trigger hazards)").GetComponent<Tilemap>();
+        }
     }
 }
