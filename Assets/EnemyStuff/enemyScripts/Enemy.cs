@@ -290,9 +290,15 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.tag == "fork")
+        if (col.gameObject.layer == 8)
         {
 
+
+            takeDamageFromSource(col.gameObject);
+
+
+            if (col.GetComponent<playerMeleeObj>() && col.GetComponent<playerMeleeObj>().heldByP1) { takeKnockback(.2f, playerOneTrfm.position); }
+            else { takeKnockback(.2f, playerTwoTrfm.position); }
         }
     }
 

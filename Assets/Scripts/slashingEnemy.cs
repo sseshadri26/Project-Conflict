@@ -51,8 +51,8 @@ public class slashingEnemy : meleeEnemy
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D col)
-    {
-        TriggerEnter(col);
-    }
+    //private void OnTriggerEnter2D(Collider2D col)
+    //{
+    //    TriggerEnter(col);
+    //}
 }

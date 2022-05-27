@@ -66,8 +66,8 @@ public class dashingEnemy : meleeEnemy
         trfm.position += trfm.up * stepCurve.Evaluate(t) * spd + (new Vector3(0, offsetCurve.Evaluate(t) * .01f, 0));
     }
 
-    private void OnTriggerEnter2D(Collider2D col)
-    {
-        TriggerEnter(col);
-    }
+    //private void OnTriggerEnter2D(Collider2D col)
+    //{
+    //    TriggerEnter(col);
+    //}
 }
