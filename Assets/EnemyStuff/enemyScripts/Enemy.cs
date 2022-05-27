@@ -341,18 +341,59 @@ public class Enemy : MonoBehaviour
         playerTwoTrfm = playerTwoTransform;
     }
 
-    public int takeDamage(int amount)
+    public int takeDamage(int amount, GameObject col)
     {
-        health -= amount;
+        health -= amount * 10;
         if (health < 1)
         {
+            Debug.Log(col.gameObject.transform.root.gameObject.name);
+            if (col.gameObject.GetComponent<playerMeleeObj>())
+            {
+                if (col.gameObject.GetComponent<playerMeleeObj>().heldByP1)
+                {
+                    //p1.score += 1;
+                    Debug.Log("Player 1 killed enemy");
+                }
+                else
+                {
+                    //p2.score += 1;
+                    Debug.Log("Player 2 killed enemy");
+                }
+                Destroy(gameObject);
+                return 0;
+
+            }
+
+            GameObject owner = col.gameObject.transform.root.gameObject.GetComponent<AttackOwnerTracking>().owner;
+
+            //GameObject score = GameObject.Find("Score");
+            //if name has the digit 1 in it, then it is player one
+            if (owner.name.Contains("1"))
+            {
+                //find the "score" object in scene
+
+                //add to the score
+                //score.GetComponent<ScoreTracker>().addP1Score(1);
+                Debug.Log("Player 1 killed enemy");
+            }
+            else
+            {
+                //score.GetComponent<ScoreTracker>().addP2Score(1);
+                Debug.Log("Point for player 2");
+            }
             Destroy(gameObject);
             return 0;
+
         }
 
         // Enemy blinks a few times when damaged
         StartCoroutine(HitAnimation());
         return health;
+    }
+
+    public void takeDamageFromSource(GameObject col)
+    {
+        takeDamage(1, col);
     }
 
     public bool stun(float duration)
@@ -381,7 +422,11 @@ public class Enemy : MonoBehaviour
     {
         if (col.gameObject.layer == 8)
         {
-            takeDamage(1);
+
+
+            takeDamageFromSource(col.gameObject);
+
+
             if (col.GetComponent<playerMeleeObj>() && col.GetComponent<playerMeleeObj>().heldByP1) { takeKnockback(.2f, playerOneTrfm.position); }
             else { takeKnockback(.2f, playerTwoTrfm.position); }
         }
