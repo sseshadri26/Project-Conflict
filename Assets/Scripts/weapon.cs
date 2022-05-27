@@ -70,8 +70,22 @@ public class weapon : MonoBehaviour
     [SerializeField] SpriteRenderer thrustRend;
     [SerializeField] Color thrustCol;
     int pickUpDelay;
+    public bool lastOwnerWasP1;
+
+    //getter functions to determine which player threw the weapon last
+
+
     private void FixedUpdate()
     {
+        if (m_state == state.threwP1)
+        {
+            lastOwnerWasP1 = true;
+        }
+        else if (m_state == state.threwP2)
+        {
+            lastOwnerWasP1 = false;
+        }
+
         if (inFlight())
         {
             trfm.position += trfm.up * spd;

@@ -6,7 +6,7 @@ public class AttackOwnerTracking : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    public GameObject owner;
+    public bool owner;
     void Start()
     {
 
@@ -16,9 +16,11 @@ public class AttackOwnerTracking : MonoBehaviour
     void Update()
     {
         //if parent object is of layer "player", update it to be owner
-        if (gameObject.transform.root.gameObject.layer == 7)
+        if (GetComponent<weapon>())
         {
-            owner = gameObject.transform.root.gameObject;
+            bool ownerIsP1 = GetComponent<weapon>().lastOwnerWasP1;
+
+
         }
     }
 }

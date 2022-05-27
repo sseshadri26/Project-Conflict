@@ -182,7 +182,7 @@ public class PlayerControls : MonoBehaviour
         {
             thrustAttacking = 12;
             m_weapon.doThrustAttack();
-            Debug.Log(isP1);
+            //Debug.Log(isP1);
             Instantiate(thrustObj, m_weapon.trfm.position, m_weapon.trfm.rotation).GetComponent<playerMeleeObj>().heldByP1 = isP1;
             meleeCD = 50;
             return true;
@@ -365,7 +365,7 @@ public class PlayerControls : MonoBehaviour
 
     private void EnemyDamage()
     {
-        Debug.Log("oof");
+        //Debug.Log("oof");
         timerStart = timerEnd;
         isStunned = true;
         StartCoroutine(HitAnimation());

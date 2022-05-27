@@ -227,7 +227,10 @@ public class VoronoiSplit : MonoBehaviour
 
             for (int i = 0; i < Players.Length && i < MAX_PLAYERS; i++)
             {
-                worldPositions[i] = Players[i].position;
+                if (Players[i] != null)
+                {
+                    worldPositions[i] = Players[i].position;
+                }
             }
         }
 

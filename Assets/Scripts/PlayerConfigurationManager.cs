@@ -82,7 +82,7 @@ public class PlayerConfigurationManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Player " + pi.playerIndex + " already joined");
+            //Debug.LogError("Player " + pi.playerIndex + " already joined");
             return;
         }
     }

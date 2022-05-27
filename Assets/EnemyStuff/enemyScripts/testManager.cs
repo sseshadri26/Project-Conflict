@@ -12,14 +12,21 @@ public class testManager : MonoBehaviour
         if (playerOneTrfm == null || playerOneTrfm.gameObject.name.Contains("Dummy"))
         {
             //find a "player 1" object in scene
-            playerOneTrfm = GameObject.Find("Player 1(Clone)").transform;
+            if (GameObject.Find("Player 1(Clone)"))
+            {
+                playerOneTrfm = GameObject.Find("Player 1(Clone)").transform;
+            }
         }
 
 
         if (playerTwoTrfm == null || playerTwoTrfm.gameObject.name.Contains("Dummy"))
         {
             //find a "player 2" object in scene
-            playerTwoTrfm = GameObject.Find("Player 2(Clone)").transform;
+            if (GameObject.Find("Player 2(Clone)"))
+            {
+                playerTwoTrfm = GameObject.Find("Player 2(Clone)").transform;
+            }
+
         }
 
 

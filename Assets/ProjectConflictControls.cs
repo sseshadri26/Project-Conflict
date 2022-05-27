@@ -243,6 +243,17 @@ public partial class @ProjectConflictControls : IInputActionCollection2, IDispos
                 },
                 {
                     ""name"": """",
+                    ""id"": ""bb8c7d26-43c9-4798-8dcc-21f7e4f68d53"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""05f6913d-c316-48b2-a6bb-e225f14c7960"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
@@ -289,6 +300,17 @@ public partial class @ProjectConflictControls : IInputActionCollection2, IDispos
                     ""name"": """",
                     ""id"": ""61fcb5ba-201f-47f0-970a-f12a8ce19030"",
                     ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Fire2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ad24f3b0-30f9-450f-9044-5995cc3a123f"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7135117571650088300}
   m_Layer: 0
   m_Name: PlayerConfigurationManager
-  m_TagString: Untagged
+  m_TagString: pcm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

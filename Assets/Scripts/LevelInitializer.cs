@@ -13,8 +13,18 @@ public class LevelInitializer : MonoBehaviour
     private GameObject[] playerPrefabs;
 
     // Start is called before the first frame update
-    void Start()
+
+
+    void Awake()
     {
+        //destroy any existing players
+        //GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        //foreach (GameObject player in players)
+        //{
+        //    Destroy(player);
+        //}
+        Destroy(GameObject.Find("Player 1(Clone)"));
+        Destroy(GameObject.Find("Player 2(Clone)"));
         var playerConfigurations =
             PlayerConfigurationManager
                 .Instance

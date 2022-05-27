@@ -55,7 +55,6 @@ public class Enemy : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         seeker = GetComponent<Seeker>();
         animator = GetComponentInChildren<Animator>();
-        health *= 2;
         sprite = this.transform.Find("sprite").GetComponent<SpriteRenderer>();
     }
 
@@ -355,10 +354,11 @@ public class Enemy : MonoBehaviour
 
     public int takeDamage(int amount, GameObject col)
     {
+        Debug.Log(amount);
         health -= amount;
         if (health < 1)
         {
-            Debug.Log(col.gameObject.transform.root.gameObject.name);
+            //Debug.Log(col.gameObject.transform.root.gameObject.name);
             GameObject score = GameObject.Find("Score");
 
             if (col.gameObject.GetComponent<playerMeleeObj>())
@@ -366,13 +366,13 @@ public class Enemy : MonoBehaviour
                 if (col.gameObject.GetComponent<playerMeleeObj>().heldByP1)
                 {
                     //p1.score += 1;
-                    Debug.Log("Player 1 killed enemy");
+                    //Debug.Log("Player 1 killed enemy");
                     score.GetComponent<SetScore>().addP1Score(1);
                 }
                 else
                 {
                     //p2.score += 1;
-                    Debug.Log("Player 2 killed enemy");
+                    //Debug.Log("Player 2 killed enemy");
                     score.GetComponent<SetScore>().addP2Score(1);
                 }
                 Destroy(gameObject);
@@ -380,21 +380,21 @@ public class Enemy : MonoBehaviour
 
             }
 
-            GameObject owner = col.gameObject.transform.root.gameObject.GetComponent<AttackOwnerTracking>().owner;
+            bool ownerIsP1 = col.gameObject.transform.root.gameObject.GetComponent<weapon>().lastOwnerWasP1;
 
             //if name has the digit 1 in it, then it is player one
-            if (owner.name.Contains("1"))
+            if (ownerIsP1)
             {
                 //find the "score" object in scene
 
                 //add to the score
                 score.GetComponent<SetScore>().addP1Score(1);
-                Debug.Log("Player 1 killed enemy");
+                //Debug.Log("Player 1 killed enemy");
             }
             else
             {
                 score.GetComponent<SetScore>().addP2Score(1);
-                Debug.Log("Point for player 2");
+                //Debug.Log("Point for player 2");
             }
             Destroy(gameObject);
             return 0;

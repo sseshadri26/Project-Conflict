@@ -6,6 +6,7 @@ TagManager:
   tags:
   - weapon
   - enemy
+  - pcm
   layers:
   - Default
   - TransparentFX
