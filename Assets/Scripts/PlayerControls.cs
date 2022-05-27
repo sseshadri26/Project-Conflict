@@ -219,9 +219,13 @@ public class PlayerControls : MonoBehaviour
     public void OnFaceDirection(InputAction.CallbackContext context)
     {
         /*Added by vikram*/
-        PlayerInput playerInput = GetComponent<PlayerInput>();
+        PlayerInput playerInput;
+        if (GetComponent<PlayerInputHandler>())
+            playerInput = GetComponent<PlayerInputHandler>().playerConfig.Input;
+        else
+            playerInput = GetComponent<PlayerInput>();
         //Debug.Log(playerInput);
-        Debug.Log(playerInput.gameObject.name);
+        //Debug.Log(playerInput.gameObject.name);
         //Debug.Log(playerInput.);
         //Debug.Log(context.ReadValue<Vector2>());
         if (playerInput.currentControlScheme == "Gamepad")

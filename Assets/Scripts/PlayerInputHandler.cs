@@ -9,7 +9,7 @@ using static UnityEngine.InputSystem.InputAction;
 
 public class PlayerInputHandler : MonoBehaviour
 {
-    private PlayerConfiguration playerConfig;
+    public PlayerConfiguration playerConfig;
 
     private PlayerControls playerControls;
 

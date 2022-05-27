@@ -30,7 +30,7 @@ public class LevelInitializer : MonoBehaviour
             player
                 .GetComponent<PlayerInputHandler>()
                 .InitializePlayer(playerConfigurations[i]);
-            player.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
+            //player.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
 
         }
     }
