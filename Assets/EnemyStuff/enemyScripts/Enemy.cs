@@ -198,7 +198,7 @@ public class Enemy : MonoBehaviour
             }
 
         }
-        else
+        else if (playerOneTrfm)
         {
             if (!Physics2D.Linecast(trfm.position, playerOneTrfm.position, 1 << 6))
             {
