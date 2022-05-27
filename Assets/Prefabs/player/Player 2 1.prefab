@@ -430,6 +430,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 51dc5036-0c79-4ac0-b677-5e8226cdadae
     m_ActionName: UI/RightClick[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 79b24f0e-c61b-400f-bfb8-02c0a8637208
+    m_ActionName: Player/Fire2[/Mouse/rightButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -448,11 +452,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  moveDebuf: 0
+  moveDebuf: 0.5
   anim: {fileID: 8350717601926857785}
   hands:
   - {fileID: 8350717601007927639}
   - {fileID: 8350717602422562517}
+  sprite: {fileID: 0}
   weaponEquipped: 0
   isP1: 0
   m_weapon: {fileID: 0}
