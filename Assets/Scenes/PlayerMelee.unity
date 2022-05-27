@@ -86495,7 +86495,7 @@ PrefabInstance:
     - target: {fileID: 8350717602695682537, guid: 7fa1d45ddf5d92540b0d83fc92a8c22a, type: 3}
       propertyPath: spinObj
       value: 
-      objectReference: {fileID: 2012712726531664011, guid: cd47f7b76b456b24bb84db79b11b5c8b, type: 3}
+      objectReference: {fileID: 2012712726531664011, guid: 6c1e5652df99485499224fa6afafa1a5, type: 3}
     - target: {fileID: 8350717602695682537, guid: 7fa1d45ddf5d92540b0d83fc92a8c22a, type: 3}
       propertyPath: m_weapon
       value: 
