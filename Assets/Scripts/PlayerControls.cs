@@ -30,7 +30,8 @@ public class PlayerControls : MonoBehaviour
     private float stunTimer;
 
     // index 0 - idle hand; index 1 = weapon hand
-    private Transform[] hands;
+    [SerializeField]
+    Transform[] hands;
 
     [SerializeField]
     bool
@@ -82,9 +83,8 @@ public class PlayerControls : MonoBehaviour
         if (isP1) { p1Trfm = transform; }
         else { p2Trfm = transform; }
         angleIdle = -90;
-        hands = new Transform[2];
-        hands[0] = this.gameObject.transform.GetChild(1); // child objects are offset by 1 due to attachpoint
-        hands[1] = this.gameObject.transform.GetChild(2);
+
+
         //sorry commented our your code trying to get stuff to compile :|   -kaiway
     }
 
@@ -114,11 +114,12 @@ public class PlayerControls : MonoBehaviour
         {
             doubleClick--;
         }
-        
+
         if (spinAttacking > 0)
         {
             spinAttacking--;
-        } else
+        }
+        else
         {
             if (throwQued)
             {
@@ -240,11 +241,13 @@ public class PlayerControls : MonoBehaviour
                 new Vector2(moveDirection.x * moveSpeed,
                     moveDirection.y * moveSpeed);
             isStunned = false;
-        } else if (isStunned)
+        }
+        else if (isStunned)
         {
             // player stepped on ketchup glob and cannot move for stunTimer seconds
             rb.velocity = new Vector2(0.0f, 0.0f);
-        } else
+        }
+        else
         {
             // player stepped on mustard glob and is slower by a factor of moveDebuf
             rb.velocity =

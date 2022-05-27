@@ -9,7 +9,7 @@ public class weapon : MonoBehaviour
         if (inFlight() || m_state == state.embedded) return false;
 
         trfm.parent = null;
-        if (p1) { m_state = state.threwP1; trfm.LookAt(PlayerControls.getPos(true)); } else { m_state = state.threwP2; trfm.LookAt(PlayerControls.getPos(false)); }
+        if (p1) { m_state = state.threwP1; } else { m_state = state.threwP2; }
         throwBlurBack.SetActive(true);
         throwBlurFront.SetActive(true);
         return true;
@@ -83,8 +83,8 @@ public class weapon : MonoBehaviour
     {
         if (spinAttacking == 0)
         {
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            trfm.localEulerAngles = new Vector3(0, 0, angle - 90);
+            //float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            trfm.localEulerAngles = new Vector3(0, 0, -90);
         }
     }
 
@@ -97,7 +97,8 @@ public class weapon : MonoBehaviour
             m_state = state.embedded;
             boxCol.enabled = true;
             exitFlight();
-        } else if (col.gameObject.layer == 7 && inFlight())
+        }
+        else if (col.gameObject.layer == 7 && inFlight())
         {
             // layer 7 = player; this mistakenly triggers for the player that threw the fork too
             // also this doesn't address weaponEquipped in PlayerControls.cs
