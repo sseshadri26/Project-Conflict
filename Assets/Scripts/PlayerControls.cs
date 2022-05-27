@@ -109,24 +109,13 @@ public class PlayerControls : MonoBehaviour
         timerEnd += Time.deltaTime;
 
 
+        if (meleeCD > 0) meleeCD--;
 
-        if (doubleClick > 0)
-        {
-            doubleClick--;
-        }
+        if (doubleClick > 0) doubleClick--;
 
-        if (spinAttacking > 0)
-        {
-            spinAttacking--;
-        }
-        else
-        {
-            if (throwQued)
-            {
-                //ThrowFork();
-                throwQued = false;
-            }
-        }
+        if (thrustAttacking > 0) thrustAttacking--;
+
+        if (spinAttacking > 0) spinAttacking--;
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -139,9 +128,9 @@ public class PlayerControls : MonoBehaviour
 
     bool buttonDown = false;
     [SerializeField] bool throwQued;
-    [SerializeField] GameObject meleeAttack;
+    [SerializeField] GameObject thrustObj, tinySpinObj, spinObj;
     int doubleClick;
-    int spinAttacking;
+    int spinAttacking, thrustAttacking, meleeCD;
     public void OnFire(InputAction.CallbackContext context)
     {
         modifierPressed = context.performed;
@@ -158,7 +147,8 @@ public class PlayerControls : MonoBehaviour
                 }
                 else
                 {
-                    doSpinAttack();
+                    if (weaponEquipped) { doThrustAttack(); }
+                    else { doTinySpinAttack(); }
                     doubleClick = 10;
                 }
             }
@@ -183,14 +173,38 @@ public class PlayerControls : MonoBehaviour
             weaponEquipped = !m_weapon.Throw(isP1);
         }
     }
+    public bool doThrustAttack()
+    {
+        if (meleeCD < 1 && thrustAttacking < 1 && spinAttacking < 1)
+        {
+            thrustAttacking = 12;
+            m_weapon.doThrustAttack();
+            Instantiate(thrustObj, m_weapon.trfm.position, m_weapon.trfm.rotation).GetComponent<playerMeleeObj>().heldByP1 = isP1;
+            meleeCD = 50;
+            return true;
+        }
+        return false;
+    }
     public bool doSpinAttack()
     {
-        if (spinAttacking < 1 && weaponEquipped)
+        if (meleeCD < 1 && thrustAttacking < 1 && spinAttacking < 1 && weaponEquipped)
         {
             spinAttacking = 15;
             m_weapon.doSpinAttack();
-            Debug.Log("SPIN");
-            Instantiate(meleeAttack, getPos(isP1).position, Quaternion.identity);
+            Instantiate(spinObj, getPos(isP1).position, Quaternion.identity);
+            meleeCD = 50;
+            return true;
+        }
+        return false;
+    }
+
+    public bool doTinySpinAttack()
+    {
+        if (meleeCD < 1 && thrustAttacking < 1 && spinAttacking < 1)
+        {
+            spinAttacking = 12;
+            Instantiate(tinySpinObj, getPos(isP1).position, Quaternion.identity).GetComponent<tinySpinAttack>().plyrTrfm = getPos(isP1);
+            meleeCD = 50;
             return true;
         }
         return false;
@@ -357,7 +371,10 @@ public class PlayerControls : MonoBehaviour
             Debug.Log("epic catch");
             weaponEquipped = m_weapon.PickUp(this);
         }
-
+        if (col.gameObject.GetComponent<tinySpinAttack>())
+        {
+            if (weaponEquipped) ThrowFork();
+        }
         //Debug.Log($"touched {col.name}");
     }
 }

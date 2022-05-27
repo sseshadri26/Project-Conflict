@@ -381,6 +381,8 @@ public class Enemy : MonoBehaviour
         if (col.gameObject.layer == 8)
         {
             takeDamage(1);
+            if (col.GetComponent<playerMeleeObj>() && col.GetComponent<playerMeleeObj>().heldByP1) { takeKnockback(.2f, playerOneTrfm.position); }
+            else { takeKnockback(.2f, playerTwoTrfm.position); }
         }
     }
 }

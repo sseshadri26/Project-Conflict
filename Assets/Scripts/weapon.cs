@@ -30,12 +30,22 @@ public class weapon : MonoBehaviour
         return true;
     }
 
-    int spinAttacking;
+    int spinAttacking, thrustAttacking;
+    public bool doThrustAttack()
+    {
+        if (inHand())
+        {
+            thrustObj.SetActive(true);
+            thrustAttacking = 12;
+            return true;
+        }
+        return false;
+    }
     public bool doSpinAttack()
     {
         if (inHand())
         {
-            spinAttack.SetActive(true);
+            spinObj.SetActive(true);
             spinAttacking = 15;
             return true;
         }
@@ -44,10 +54,12 @@ public class weapon : MonoBehaviour
 
     enum state { attachedP1, attachedP2, threwP1, threwP2, embedded };
     state m_state = state.embedded;
-    [SerializeField] GameObject spinAttack, throwBlurFront, throwBlurBack;
-    [SerializeField] Transform trfm;
+    [SerializeField] GameObject spinObj, thrustObj, throwBlurFront, throwBlurBack;
+    public Transform trfm;
     [SerializeField] float spd;
     [SerializeField] BoxCollider2D boxCol;
+    [SerializeField] SpriteRenderer thrustRend;
+    [SerializeField] Color thrustCol;
     int pickUpDelay;
     private void FixedUpdate()
     {
@@ -59,13 +71,42 @@ public class weapon : MonoBehaviour
         {
             spinAttacking--;
             trfm.Rotate(Vector3.forward * -24);
-            if (spinAttacking == 0) spinAttack.SetActive(false);
+            if (spinAttacking == 0) spinObj.SetActive(false);
+        }
+        if (thrustAttacking > 0)
+        {
+            thrustAttacking--;
+            if (thrustAttacking > 5)
+            {
+                trfm.position += trfm.up * .15f;
+            } else
+            {
+                trfm.position += trfm.up * -.15f;
+                thrustObj.transform.position += trfm.up * .3f;
+                if (thrustAttacking < 6)
+                {
+                    thrustRend.color -= thrustCol;
+                }
+                if (thrustAttacking == 0)
+                {
+                    thrustObj.transform.position = trfm.position;
+                    thrustObj.SetActive(false);
+                    thrustRend.color = new Color(1,1,1,1);
+                }
+            }
         }
     }
 
     bool inFlight()
     {
         return m_state == state.threwP1 || m_state == state.threwP2;
+    }
+
+    void embed()
+    {
+        m_state = state.embedded;
+        boxCol.enabled = true;
+        exitFlight();
     }
 
     void exitFlight()
@@ -88,15 +129,20 @@ public class weapon : MonoBehaviour
         }
     }
 
+    public int heldBy()
+    {
+        if (m_state == state.attachedP1) return 1;
+        if (m_state == state.attachedP2) return 2;
+        return 0;
+    }
+
     private void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject.layer == 6 && !inHand())
         {
             // layer 6 = walls
             //trfm.position += trfm.up * -0.8f;
-            m_state = state.embedded;
-            boxCol.enabled = true;
-            exitFlight();
+            embed();
         }
         else if (col.gameObject.layer == 7 && inFlight())
         {
