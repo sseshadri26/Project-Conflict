@@ -34,6 +34,9 @@ public class PlayerControls : MonoBehaviour
     Transform[] hands;
 
     [SerializeField]
+    SpriteRenderer sprite;
+
+    [SerializeField]
     bool
 
             weaponEquipped,
@@ -340,26 +343,26 @@ public class PlayerControls : MonoBehaviour
         // loops decrease then increase alpha channel in order to create a blinking effect
         // when hitting a hazard; can potentially extend this to getting hit by enemies
         // if you replace stunTimer with a parameter
-        Color tmp = this.GetComponent<SpriteRenderer>().color;
+        Color tmp = sprite.color;
         while (timerEnd - timerStart < stunTimer)
         {
             for (float alpha = 1f; alpha >= 0f; alpha -= 0.1f)
             {
                 tmp.a = alpha;
-                this.GetComponent<SpriteRenderer>().color = tmp;
+                sprite.color = tmp;
                 yield return new WaitForSeconds(0.05f);
             }
             for (float alpha = 0; alpha <= 1f; alpha += 0.1f)
             {
                 tmp.a = alpha;
-                this.GetComponent<SpriteRenderer>().color = tmp;
+                sprite.color = tmp;
                 yield return new WaitForSeconds(0.05f);
             }
         }
 
         // reset alpha to normal and quit the coroutine
         tmp.a = 1f;
-        this.GetComponent<SpriteRenderer>().color = tmp;
+        sprite.color = tmp;
         yield break;
     }
 

@@ -105,8 +105,9 @@ MonoBehaviour:
   inRangeOfPlayer: 7
   maxChaseDistance: 15
   memoryTime: 10
-  projectile: {fileID: 1875503230918823877, guid: 99a4ac0da436ac848b9bec29926fb4b2, type: 3}
-  hazardTilemap: {fileID: 0}
+  projectile: {fileID: 1875503230918823877, guid: b267c90b56d746148a52f063dc48a8ee, type: 3}
+  hazardBlob: {fileID: 1875503230918823877, guid: 24a8846721db4e24ab1254412c30d01e, type: 3}
+  hazardTilemap: {fileID: 5967557433831977902, guid: 71856c685c4e238428f4ffa010a52431, type: 3}
   spawnedTile: {fileID: 11400000, guid: e89e0f5e4d0e7514bbf0282aa3fac725, type: 2}
 --- !u!114 &1976723023820511935
 MonoBehaviour:
@@ -287,7 +288,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: eb6f6fa88c893f24a9e956ad61988b63, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -8,7 +8,7 @@ Assets/AssetStoreTools*
 
 #ignore for macs
 **/.DS_Store
-
+UserSettings/EditorUserSettings.asset
 # Visual Studio cache directory
 .vs/
 
