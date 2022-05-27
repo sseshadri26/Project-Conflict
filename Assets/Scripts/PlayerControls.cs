@@ -182,6 +182,7 @@ public class PlayerControls : MonoBehaviour
         {
             thrustAttacking = 12;
             m_weapon.doThrustAttack();
+            Debug.Log(isP1);
             Instantiate(thrustObj, m_weapon.trfm.position, m_weapon.trfm.rotation).GetComponent<playerMeleeObj>().heldByP1 = isP1;
             meleeCD = 50;
             return true;
@@ -194,7 +195,7 @@ public class PlayerControls : MonoBehaviour
         {
             spinAttacking = 15;
             m_weapon.doSpinAttack();
-            Instantiate(spinObj, getPos(isP1).position, Quaternion.identity);
+            Instantiate(spinObj, getPos(isP1).position, Quaternion.identity).GetComponent<playerMeleeObj>().heldByP1 = isP1;
             meleeCD = 50;
             return true;
         }
@@ -206,7 +207,9 @@ public class PlayerControls : MonoBehaviour
         if (meleeCD < 1 && thrustAttacking < 1 && spinAttacking < 1)
         {
             spinAttacking = 12;
-            Instantiate(tinySpinObj, getPos(isP1).position, Quaternion.identity).GetComponent<tinySpinAttack>().plyrTrfm = getPos(isP1);
+            GameObject tinySpinObjectNew = Instantiate(tinySpinObj, getPos(isP1).position, Quaternion.identity);
+            tinySpinObjectNew.GetComponent<tinySpinAttack>().plyrTrfm = getPos(isP1);
+            tinySpinObjectNew.GetComponent<playerMeleeObj>().heldByP1 = isP1;
             meleeCD = 50;
             return true;
         }

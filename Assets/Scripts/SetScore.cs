@@ -14,22 +14,37 @@ public class SetScore : MonoBehaviour
     void Start()
     {
         player1 = this.gameObject.transform.GetChild(0).gameObject.GetComponent<TMP_Text>();
-        player2 = this.gameObject.transform.GetChild(1).gameObject.GetComponent<TMP_Text>();    
+        player2 = this.gameObject.transform.GetChild(1).gameObject.GetComponent<TMP_Text>();
     }
 
-    void Update() {
-        player1.text = ""+p1Score;
-        player2.text = ""+p2Score;
+    void Update()
+    {
+        player1.text = "" + p1Score;
+        player2.text = "" + p2Score;
     }
 
-    public void updateScore(int p1, int p2) {
+    public void updateScore(int p1, int p2)
+    {
         p1Score = p1;
         p2Score = p2;
     }
-    public int getp1Score() {
+    public int getp1Score()
+    {
         return p1Score;
     }
-    public int getp2Score() {
+    public int getp2Score()
+    {
         return p2Score;
     }
+
+    public void addP1Score(int i)
+    {
+        p1Score += i;
+    }
+
+    public void addP2Score(int i)
+    {
+        p2Score += i;
+    }
+
 }

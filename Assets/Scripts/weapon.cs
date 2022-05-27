@@ -159,42 +159,14 @@ public class weapon : MonoBehaviour
             // layer 7 = player; this mistakenly triggers for the player that threw the fork too
             // also this doesn't address weaponEquipped in PlayerControls.cs
             Debug.Log("hit another player");
-            embed();
-            //PickUp(col.gameObject.GetComponent<PlayerControls>());
-        }
-    }
-    private void OnTriggerStay2D(Collider2D col)
-    {
-
-        if (col.gameObject.layer == 6 && !inHand())
-        {
-            // layer 6 = walls
-            //trfm.position += trfm.up * -0.8f;
-            embed();
-        }
-        else if (col.gameObject.layer == 7 && inFlight())
-        {
-            // layer 7 = player; this mistakenly triggers for the player that threw the fork too
-            // also this doesn't address weaponEquipped in PlayerControls.cs
-            Debug.Log("hit another player");
-            embed();
-            //PickUp(col.gameObject.GetComponent<PlayerControls>());
-        }
-    }
-    private void OnCollisionStay2D(Collision2D col)
-    {
-        if (col.gameObject.layer == 6 && !inHand())
-        {
-            // layer 6 = walls
-            //trfm.position += trfm.up * -0.8f;
-            embed();
-        }
-        else if (col.gameObject.layer == 7 && inFlight())
-        {
-            // layer 7 = player; this mistakenly triggers for the player that threw the fork too
-            // also this doesn't address weaponEquipped in PlayerControls.cs
-            Debug.Log("hit another player");
-            embed();
+            if (m_state == state.threwP1 && col.gameObject.transform.root.gameObject.name.Contains("2"))
+            {
+                embed();
+            }
+            else if (m_state == state.threwP2 && col.gameObject.transform.root.gameObject.name.Contains("1"))
+            {
+                embed();
+            }
             //PickUp(col.gameObject.GetComponent<PlayerControls>());
         }
     }

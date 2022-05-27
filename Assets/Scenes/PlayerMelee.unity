@@ -51163,7 +51163,7 @@ GameObject:
   - component: {fileID: 206272741}
   - component: {fileID: 206272740}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: Score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -51597,8 +51597,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1e5a293b392c8d478777eb2bf27d7cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerOneTrfm: {fileID: 1572084523}
-  playerTwoTrfm: {fileID: 1161797957}
+  playerOneTrfm: {fileID: 1161797957}
+  playerTwoTrfm: {fileID: 1572084523}
 --- !u!1 &690418720
 GameObject:
   m_ObjectHideFlags: 0
@@ -85632,11 +85632,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 277976804284002483, guid: 7e5fb367644798c41aa3673dc565f438, type: 3}
       propertyPath: m_Size.y
-      value: 21.419935
+      value: 21.239351
       objectReference: {fileID: 0}
     - target: {fileID: 277976804284002483, guid: 7e5fb367644798c41aa3673dc565f438, type: 3}
       propertyPath: m_Offset.y
-      value: 5.2900324
+      value: 5.3803244
       objectReference: {fileID: 0}
     - target: {fileID: 1179649821026797194, guid: 7e5fb367644798c41aa3673dc565f438, type: 3}
       propertyPath: m_Size.x
@@ -85981,6 +85981,10 @@ PrefabInstance:
     - target: {fileID: 8350717602695682536, guid: 7fa1d45ddf5d92540b0d83fc92a8c22a, type: 3}
       propertyPath: m_ActionEvents.Array.data[11].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8350717602695682537, guid: 7fa1d45ddf5d92540b0d83fc92a8c22a, type: 3}
+      propertyPath: isP1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8350717602695682537, guid: 7fa1d45ddf5d92540b0d83fc92a8c22a, type: 3}
       propertyPath: spinObj
@@ -86542,11 +86546,11 @@ PrefabInstance:
     - target: {fileID: 7868160904874821159, guid: 5a2fd26dcb6f9264f90a7117a1aa47a5, type: 3}
       propertyPath: Players.Array.data[0]
       value: 
-      objectReference: {fileID: 1572084523}
+      objectReference: {fileID: 1161797957}
     - target: {fileID: 7868160904874821159, guid: 5a2fd26dcb6f9264f90a7117a1aa47a5, type: 3}
       propertyPath: Players.Array.data[1]
       value: 
-      objectReference: {fileID: 1161797957}
+      objectReference: {fileID: 1572084523}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a2fd26dcb6f9264f90a7117a1aa47a5, type: 3}
 --- !u!1 &1975553957

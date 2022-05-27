@@ -347,17 +347,21 @@ public class Enemy : MonoBehaviour
         if (health < 1)
         {
             Debug.Log(col.gameObject.transform.root.gameObject.name);
+            GameObject score = GameObject.Find("Score");
+
             if (col.gameObject.GetComponent<playerMeleeObj>())
             {
                 if (col.gameObject.GetComponent<playerMeleeObj>().heldByP1)
                 {
                     //p1.score += 1;
                     Debug.Log("Player 1 killed enemy");
+                    score.GetComponent<SetScore>().addP1Score(1);
                 }
                 else
                 {
                     //p2.score += 1;
                     Debug.Log("Player 2 killed enemy");
+                    score.GetComponent<SetScore>().addP2Score(1);
                 }
                 Destroy(gameObject);
                 return 0;
@@ -366,19 +370,18 @@ public class Enemy : MonoBehaviour
 
             GameObject owner = col.gameObject.transform.root.gameObject.GetComponent<AttackOwnerTracking>().owner;
 
-            //GameObject score = GameObject.Find("Score");
             //if name has the digit 1 in it, then it is player one
             if (owner.name.Contains("1"))
             {
                 //find the "score" object in scene
 
                 //add to the score
-                //score.GetComponent<ScoreTracker>().addP1Score(1);
+                score.GetComponent<SetScore>().addP1Score(1);
                 Debug.Log("Player 1 killed enemy");
             }
             else
             {
-                //score.GetComponent<ScoreTracker>().addP2Score(1);
+                score.GetComponent<SetScore>().addP2Score(1);
                 Debug.Log("Point for player 2");
             }
             Destroy(gameObject);
