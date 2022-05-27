@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemySpawner : MonoBehaviour
 {
     public bool spawnerOn = false;
-    public bool finalAreaComoplete = false;
+    public bool finalAreaComplete = false;
     [SerializeField] float height = 10;
     [SerializeField] float width = 20; 
     // [SerializeField] 
@@ -16,6 +17,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] int totalRounds = 10;
 
     int round = 0;
+    // private Canv
  
     // Update is called once per frame
     void Update()
@@ -38,7 +40,12 @@ public class EnemySpawner : MonoBehaviour
             }
             numberToSpawn += increaseNumberToSpawnPerRound;
         }
-        finalAreaComoplete = (round == totalRounds) && (transform.childCount == 0);
+        finalAreaComplete = (round == totalRounds) && (transform.childCount == 0);
+        if (finalAreaComplete) {
+            // if ()
+            SceneManager.LoadScene("Victory Scene Blue");
+
+        }
     }
  
     float GetModifier(float d)

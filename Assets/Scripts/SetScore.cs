@@ -7,6 +7,8 @@ public class SetScore : MonoBehaviour
 {
     TMP_Text player1;
     TMP_Text player2;
+    private int p1Score = 0;
+    private int p2Score = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -15,8 +17,19 @@ public class SetScore : MonoBehaviour
         player2 = this.gameObject.transform.GetChild(1).gameObject.GetComponent<TMP_Text>();    
     }
 
-    public void updateScore(int p1Score, int p2Score) {
+    void Update() {
         player1.text = ""+p1Score;
         player2.text = ""+p2Score;
+    }
+
+    public void updateScore(int p1, int p2) {
+        p1Score = p1;
+        p2Score = p2;
+    }
+    public int getp1Score() {
+        return p1Score;
+    }
+    public int getp2Score() {
+        return p2Score;
     }
 }
