@@ -19,15 +19,15 @@ public class VoronoiSplit : MonoBehaviour
             Width = width;
             Height = height;
             OrthoSize = orthoSize;
-            AspectRatio = (float) Width / Height;
+            AspectRatio = (float)Width / Height;
         }
     }
 
 
-#region Constants
+    #region Constants
 
     private readonly string[]
-        SHADER_PLAYER_POSITION = new [] { "_Player1Pos", "_Player2Pos" };
+        SHADER_PLAYER_POSITION = new[] { "_Player1Pos", "_Player2Pos" };
 
     private readonly string SHADER_PLAYER = "_Player";
 
@@ -49,11 +49,11 @@ public class VoronoiSplit : MonoBehaviour
     private const int MAX_PLAYERS = 2;
 
 
-#endregion
+    #endregion
 
 
 
-#region Public Variables
+    #region Public Variables
 
     [Header("References")]
     public Camera MainCamera;
@@ -85,11 +85,11 @@ public class VoronoiSplit : MonoBehaviour
     public bool EnableMerging = true;
 
 
-#endregion
+    #endregion
 
 
 
-#region Variables
+    #region Variables
 
     private Color lastLineColor = Color.black;
 
@@ -112,7 +112,7 @@ public class VoronoiSplit : MonoBehaviour
     private int activePlayers = 2;
 
 
-#endregion
+    #endregion
 
 
     private void Awake()
@@ -126,7 +126,17 @@ public class VoronoiSplit : MonoBehaviour
 
         InitializeCameras();
 
-        SetLineColor (LineColor);
+        SetLineColor(LineColor);
+
+        //if Players is empty, then fill is with two generic array3 s
+        if (Players[0] == null)
+        {
+            Players[0] = transform.Find("Dummy");
+        }
+        if (Players[1] == null)
+        {
+            Players[1] = transform.Find("Dummy");
+        }
     }
 
     private void InitializeCameras()
@@ -160,8 +170,8 @@ public class VoronoiSplit : MonoBehaviour
             new RenderTexture(width, height, 0, GraphicsFormat.R8_UNorm);
         cellsTexture.name = "Cells Visualization Texture";
 
-        SplitLineMaterial.SetTexture (SHADER_CELLS_STENCIL_TEX, cellsTexture);
-        SplitLineMaterial.SetFloat(SHADER_LINE_THICKNESS, (float) height / 200);
+        SplitLineMaterial.SetTexture(SHADER_CELLS_STENCIL_TEX, cellsTexture);
+        SplitLineMaterial.SetFloat(SHADER_LINE_THICKNESS, (float)height / 200);
 
         screen = new RenderProperties(width, height);
     }
@@ -182,7 +192,7 @@ public class VoronoiSplit : MonoBehaviour
 
     private void SetLineColor(Color color)
     {
-        SplitLineMaterial.SetColor (SHADER_LINE_COLOR, LineColor);
+        SplitLineMaterial.SetColor(SHADER_LINE_COLOR, LineColor);
         lastLineColor = LineColor;
     }
 
@@ -227,7 +237,7 @@ public class VoronoiSplit : MonoBehaviour
             normalizedPositions[0] = Vector3.one / 2;
             mergeRatio = 0;
             activePlayers = 1;
-            RenderPlayers (activePlayers);
+            RenderPlayers(activePlayers);
             return;
         }
 
@@ -237,7 +247,7 @@ public class VoronoiSplit : MonoBehaviour
 
             if (lastLineColor != LineColor)
             {
-                SetLineColor (LineColor);
+                SetLineColor(LineColor);
             }
         }
 
@@ -338,7 +348,7 @@ public class VoronoiSplit : MonoBehaviour
         }
 
         // render multiplayer
-        RenderPlayers (activePlayers);
+        RenderPlayers(activePlayers);
     }
 
     private void RenderPlayers(int playerCount)
@@ -358,10 +368,10 @@ public class VoronoiSplit : MonoBehaviour
         }
 
         VoronoiCellsMaterial
-            .SetInt(SHADER_CELLS_STENCIL_OP, (int) CompareFunction.Always);
+            .SetInt(SHADER_CELLS_STENCIL_OP, (int)CompareFunction.Always);
         Shader
             .SetGlobalInt(SHADER_MASKED_STENCIL_OP,
-            (int) CompareFunction.Equal);
+            (int)CompareFunction.Equal);
         MaskRenderer.enabled = true;
 
         RenderTexture.active = playerTex;
@@ -406,9 +416,9 @@ public class VoronoiSplit : MonoBehaviour
         MaskRenderer.enabled = false;
         Shader
             .SetGlobalInt(SHADER_MASKED_STENCIL_OP,
-            (int) CompareFunction.Disabled);
+            (int)CompareFunction.Disabled);
         VoronoiCellsMaterial
-            .SetInt(SHADER_CELLS_STENCIL_OP, (int) CompareFunction.Disabled);
+            .SetInt(SHADER_CELLS_STENCIL_OP, (int)CompareFunction.Disabled);
     }
 
     //GetPlayerScreenPositions
@@ -426,13 +436,13 @@ public class VoronoiSplit : MonoBehaviour
                 : null;
 
         Graphics.Blit(null, cellsTexture, VoronoiCellsMaterial); // cells visalization
-        Graphics.Blit (playerTex, screenTex, SplitLineMaterial); // merge screens and split line texture
+        Graphics.Blit(playerTex, screenTex, SplitLineMaterial); // merge screens and split line texture
         if (EnableFXAA) Graphics.Blit(screenTex, fxaaTex, FxaaMaterial); // FXAA pass
         AlphaBlendMaterial
             .SetTexture(SHADER_BLEND_TEXTURE, EnableFXAA ? fxaaTex : screenTex); // set screen texture
-        Graphics.Blit (src, dst, AlphaBlendMaterial); // blend rendered UI on top of screen texture
+        Graphics.Blit(src, dst, AlphaBlendMaterial); // blend rendered UI on top of screen texture
 
         if (EnableFXAA) RenderTexture.ReleaseTemporary(fxaaTex);
-        RenderTexture.ReleaseTemporary (screenTex);
+        RenderTexture.ReleaseTemporary(screenTex);
     }
 }

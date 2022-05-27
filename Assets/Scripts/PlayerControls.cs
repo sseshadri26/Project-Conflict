@@ -219,16 +219,25 @@ public class PlayerControls : MonoBehaviour
     public void OnFaceDirection(InputAction.CallbackContext context)
     {
         /*Added by vikram*/
-        PlayerInput playerInput = GetComponent<PlayerInput>();
+        PlayerInput playerInput;
+        if (GetComponent<PlayerInputHandler>())
+            playerInput = GetComponent<PlayerInputHandler>().playerConfig.Input;
+        else
+            playerInput = GetComponent<PlayerInput>();
+        //Debug.Log(playerInput);
+        //Debug.Log(playerInput.gameObject.name);
+        //Debug.Log(playerInput.);
+        //Debug.Log(context.ReadValue<Vector2>());
         if (playerInput.currentControlScheme == "Gamepad")
         {
+
             faceDirection = context.ReadValue<Vector2>();
             if (faceDirection == Vector2.zero)
                 isBeingTurned = false;
             else
                 isBeingTurned = true;
         }
-        else if (playerInput.currentControlScheme == "Keyboard&Mouse")
+        else if (playerInput.currentControlScheme == "Keyboard&Mouse" || playerInput.currentControlScheme == null)
         {
             //get a vector from the parent's origin to the mouse's
             Vector2 cursorPosition = context.ReadValue<Vector2>();
@@ -238,8 +247,21 @@ public class PlayerControls : MonoBehaviour
                 //array of vector2 holding vs.GetPlayerScreenPositions()
                 Vector2[] playerScreenPositions = vs.GetPlayerScreenPositions();
 
-                currentPosition =
-                    playerScreenPositions[playerInput.playerIndex];
+
+                //currentPosition =
+                //    playerScreenPositions[playerInput.playerIndex];
+                //do the above but check if playerScreenPositions is big enough
+                //Debug.Log(playerScreenPositions);
+                if (playerScreenPositions.Length >= playerInput.playerIndex)
+                {
+                    currentPosition =
+                        playerScreenPositions[playerInput.playerIndex];
+                }
+                else
+                {
+                    //currentPosition = new Vector2(100, 100);
+                    currentPosition = cursorPosition;
+                }
             }
             else
             {
@@ -386,6 +408,10 @@ public class PlayerControls : MonoBehaviour
         //Debug.Log(col.gameObject.tag);
         if (col.gameObject.tag == "weapon" && (timerEnd - timerStart) > stunTimer)
         {
+            if (m_weapon == null)
+            {
+                m_weapon = col.gameObject.GetComponent<weapon>();
+            }
             weaponEquipped = m_weapon.PickUp(this);
         }
         else if (col.gameObject.tag == "enemy" && !isStunned)

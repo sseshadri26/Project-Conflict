@@ -198,6 +198,7 @@ GameObject:
   - component: {fileID: 4040918665495482631}
   - component: {fileID: 4040918665495482628}
   - component: {fileID: 5474001616554275987}
+  - component: {fileID: 6436177584117539331}
   m_Layer: 7
   m_Name: Player 1
   m_TagString: Untagged
@@ -256,7 +257,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: 4f74a5501e3e71b46a25e168adb5e2e7, type: 3}
-  m_NotificationBehavior: 2
+  m_NotificationBehavior: 3
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -436,6 +437,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   owner: {fileID: 4040918665495482629}
+--- !u!114 &6436177584117539331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4040918665495482629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c6418d3ddc51b44bb939cbaa7247c4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4040918665504301358
 GameObject:
   m_ObjectHideFlags: 0
