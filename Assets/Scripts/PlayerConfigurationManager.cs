@@ -57,7 +57,7 @@ public class PlayerConfigurationManager : MonoBehaviour
             //for all playerConfigurations, switch current action map to player
             playerConfigurations.ForEach(pc => pc.Input.SwitchCurrentActionMap("Player"));
 
-            SceneManager.LoadScene("Local Co-Op");
+            SceneManager.LoadScene("Tile Map");
         }
     }
 
