@@ -34,6 +34,9 @@ public class PlayerControls : MonoBehaviour
     Transform[] hands;
 
     [SerializeField]
+    SpriteRenderer sprite;
+
+    [SerializeField]
     bool
 
             weaponEquipped,
@@ -109,24 +112,13 @@ public class PlayerControls : MonoBehaviour
         timerEnd += Time.deltaTime;
 
 
+        if (meleeCD > 0) meleeCD--;
 
-        if (doubleClick > 0)
-        {
-            doubleClick--;
-        }
+        if (doubleClick > 0) doubleClick--;
 
-        if (spinAttacking > 0)
-        {
-            spinAttacking--;
-        }
-        else
-        {
-            if (throwQued)
-            {
-                //ThrowFork();
-                throwQued = false;
-            }
-        }
+        if (thrustAttacking > 0) thrustAttacking--;
+
+        if (spinAttacking > 0) spinAttacking--;
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -139,9 +131,9 @@ public class PlayerControls : MonoBehaviour
 
     bool buttonDown = false;
     [SerializeField] bool throwQued;
-    [SerializeField] GameObject meleeAttack;
+    [SerializeField] GameObject thrustObj, tinySpinObj, spinObj;
     int doubleClick;
-    int spinAttacking;
+    int spinAttacking, thrustAttacking, meleeCD;
     public void OnFire(InputAction.CallbackContext context)
     {
         modifierPressed = context.performed;
@@ -158,7 +150,8 @@ public class PlayerControls : MonoBehaviour
                 }
                 else
                 {
-                    doSpinAttack();
+                    if (weaponEquipped) { doThrustAttack(); }
+                    else { doTinySpinAttack(); }
                     doubleClick = 10;
                 }
             }
@@ -183,14 +176,38 @@ public class PlayerControls : MonoBehaviour
             weaponEquipped = !m_weapon.Throw(isP1);
         }
     }
+    public bool doThrustAttack()
+    {
+        if (meleeCD < 1 && thrustAttacking < 1 && spinAttacking < 1)
+        {
+            thrustAttacking = 12;
+            m_weapon.doThrustAttack();
+            Instantiate(thrustObj, m_weapon.trfm.position, m_weapon.trfm.rotation).GetComponent<playerMeleeObj>().heldByP1 = isP1;
+            meleeCD = 50;
+            return true;
+        }
+        return false;
+    }
     public bool doSpinAttack()
     {
-        if (spinAttacking < 1 && weaponEquipped)
+        if (meleeCD < 1 && thrustAttacking < 1 && spinAttacking < 1 && weaponEquipped)
         {
             spinAttacking = 15;
             m_weapon.doSpinAttack();
-            Debug.Log("SPIN");
-            Instantiate(meleeAttack, getPos(isP1).position, Quaternion.identity);
+            Instantiate(spinObj, getPos(isP1).position, Quaternion.identity);
+            meleeCD = 50;
+            return true;
+        }
+        return false;
+    }
+
+    public bool doTinySpinAttack()
+    {
+        if (meleeCD < 1 && thrustAttacking < 1 && spinAttacking < 1)
+        {
+            spinAttacking = 12;
+            Instantiate(tinySpinObj, getPos(isP1).position, Quaternion.identity).GetComponent<tinySpinAttack>().plyrTrfm = getPos(isP1);
+            meleeCD = 50;
             return true;
         }
         return false;
@@ -321,43 +338,83 @@ public class PlayerControls : MonoBehaviour
         StartCoroutine(HitAnimation());
     }
 
+    private void EnemyDamage()
+    {
+        Debug.Log("oof");
+        timerStart = timerEnd;
+        isStunned = true;
+        StartCoroutine(HitAnimation());
+        if (weaponEquipped)
+        {
+            weaponEquipped = m_weapon.Drop();
+        }
+    }
+
     IEnumerator HitAnimation()
     {
         // loops decrease then increase alpha channel in order to create a blinking effect
         // when hitting a hazard; can potentially extend this to getting hit by enemies
         // if you replace stunTimer with a parameter
-        Color tmp = this.GetComponent<SpriteRenderer>().color;
+        Color tmp = sprite.color;
         while (timerEnd - timerStart < stunTimer)
         {
             for (float alpha = 1f; alpha >= 0f; alpha -= 0.1f)
             {
                 tmp.a = alpha;
-                this.GetComponent<SpriteRenderer>().color = tmp;
+                sprite.color = tmp;
                 yield return new WaitForSeconds(0.05f);
             }
             for (float alpha = 0; alpha <= 1f; alpha += 0.1f)
             {
                 tmp.a = alpha;
-                this.GetComponent<SpriteRenderer>().color = tmp;
+                sprite.color = tmp;
                 yield return new WaitForSeconds(0.05f);
             }
         }
 
         // reset alpha to normal and quit the coroutine
         tmp.a = 1f;
-        this.GetComponent<SpriteRenderer>().color = tmp;
+        sprite.color = tmp;
         yield break;
     }
 
     private void OnTriggerEnter2D(Collider2D col)
     {
         //Debug.Log(col.gameObject.tag);
-        if (col.gameObject.tag == "weapon")
+        if (col.gameObject.tag == "weapon" && (timerEnd - timerStart) > stunTimer)
         {
-            Debug.Log("epic catch");
             weaponEquipped = m_weapon.PickUp(this);
         }
+        else if (col.gameObject.tag == "enemy" && !isStunned)
+        {
+            if (col.gameObject.GetComponent<dashingEnemy>())
+            {
+                if (col.gameObject.GetComponent<dashingEnemy>().abilityStep)
+                {
+                    //Debug.Log("dash");
+                    EnemyDamage();
+                }
+            }
+            else if (col.gameObject.GetComponent<slashingEnemy>())
+            {
+                if (col.gameObject.GetComponent<Enemy>().abilityCast > 0)
+                {
+                    //Debug.Log("slash");
+                    EnemyDamage();
+                }
+            }
+            else if (col.gameObject.GetComponent<thunderboltBullet>())
+            {
+                //Debug.Log("projectile");
+                EnemyDamage();
+                Destroy(col.gameObject);
 
+            }
+        }
+        if (col.gameObject.GetComponent<tinySpinAttack>())
+        {
+            if (weaponEquipped) ThrowFork();
+        }
         //Debug.Log($"touched {col.name}");
     }
 }

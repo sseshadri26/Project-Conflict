@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1976723023820511935}
   - component: {fileID: 4116750383082373062}
   m_Layer: 0
-  m_Name: shootingEnemy
+  m_Name: shootingEnemyMustard
   m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -106,10 +106,10 @@ MonoBehaviour:
   inRangeOfPlayer: 7
   maxChaseDistance: 15
   memoryTime: 10
-  projectile: {fileID: 1875503230918823877, guid: b267c90b56d746148a52f063dc48a8ee, type: 3}
-  hazardBlob: {fileID: 1875503230918823877, guid: 24a8846721db4e24ab1254412c30d01e, type: 3}
+  projectile: {fileID: 1875503230918823877, guid: 2b589ce6fac5b9f40bc000dbe9523268, type: 3}
+  hazardBlob: {fileID: 1875503230918823877, guid: 4a384ce698e4f63459c866958d1a4fdb, type: 3}
   hazardTilemap: {fileID: 5967557433831977902, guid: 71856c685c4e238428f4ffa010a52431, type: 3}
-  spawnedTile: {fileID: 11400000, guid: e89e0f5e4d0e7514bbf0282aa3fac725, type: 2}
+  spawnedTile: {fileID: 11400000, guid: df7bbf0f77f4794489b3f06c36264cbf, type: 2}
 --- !u!114 &1976723023820511935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,7 +249,7 @@ GameObject:
   - component: {fileID: 6255843819604314213}
   - component: {fileID: 8839532841046594663}
   - component: {fileID: 2635455055285626870}
-  - component: {fileID: 952726928704931684}
+  - component: {fileID: 6588723079107597371}
   m_Layer: 0
   m_Name: sprite
   m_TagString: Untagged
@@ -311,7 +311,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e3cfa5f40f22b472db6d0d59630f5bbe, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8f60dc693e0ff49ce80daab3b96947ed, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -332,7 +332,7 @@ Animator:
   m_GameObject: {fileID: 5824088256983309304}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 5faa80d4f551b486c8997afb6b52eda3, type: 2}
+  m_Controller: {fileID: 22100000, guid: a631c3782af764075bab2db231e572d2, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -365,7 +365,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e72c23f6f1ab44a4ad67b77ff1fc9a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &952726928704931684
+--- !u!114 &6588723079107597371
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
