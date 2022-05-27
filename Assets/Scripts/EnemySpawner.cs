@@ -17,7 +17,12 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] int totalRounds = 10;
 
     int round = 0;
-    // private Canv
+    SetScore scoreScript;
+
+    void Start() {
+        scoreScript = GameObject.Find("Score").GetComponent<SetScore>();
+        scoreScript.updateScore(0, 1);
+    }
  
     // Update is called once per frame
     void Update()
@@ -41,9 +46,13 @@ public class EnemySpawner : MonoBehaviour
             numberToSpawn += increaseNumberToSpawnPerRound;
         }
         finalAreaComplete = (round == totalRounds) && (transform.childCount == 0);
+        Debug.Log("complete");
         if (finalAreaComplete) {
-            // if ()
-            SceneManager.LoadScene("Victory Scene Blue");
+            if (scoreScript.getp1Score() > scoreScript.getp2Score()) {
+                SceneManager.LoadScene("Victory Screen Orange");
+            } else {
+                SceneManager.LoadScene("Victory Screen Blue");
+            }
 
         }
     }
