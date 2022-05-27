@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4373678190444293475}
   - component: {fileID: 4373678190444293477}
+  - component: {fileID: 1263419248}
   m_Layer: 0
   m_Name: FinalArea
   m_TagString: Untagged
@@ -44,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnerOn: 0
-  finalAreaComoplete: 0
+  finalAreaComplete: 0
   height: 10
   width: 20
   enemyPrefabs:
@@ -53,4 +54,31 @@ MonoBehaviour:
   - {fileID: 2178550086036042960, guid: 0f1ecc79aad65dd489ffcf6d48246f95, type: 3}
   - {fileID: 2178550086036042960, guid: ba01c08925ae2da44b3a49090dda92d5, type: 3}
   numberToSpawn: 5
-  totalRounds: 3
+  increaseNumberToSpawnPerRound: 2
+  totalRounds: 5
+--- !u!61 &1263419248
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4373678190444293476}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 10, y: 10}
+  m_EdgeRadius: 0

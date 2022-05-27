@@ -18,10 +18,10 @@ public class EnemySpawner : MonoBehaviour
 
     int round = 0;
     SetScore scoreScript;
+    int playersOverlapping = 0;
 
     void Start() {
         scoreScript = GameObject.Find("Score").GetComponent<SetScore>();
-        scoreScript.updateScore(0, 1);
     }
  
     // Update is called once per frame
@@ -46,7 +46,6 @@ public class EnemySpawner : MonoBehaviour
             numberToSpawn += increaseNumberToSpawnPerRound;
         }
         finalAreaComplete = (round == totalRounds) && (transform.childCount == 0);
-        Debug.Log("complete");
         if (finalAreaComplete) {
             if (scoreScript.getp1Score() > scoreScript.getp2Score()) {
                 SceneManager.LoadScene("Victory Screen Orange");
@@ -64,6 +63,21 @@ public class EnemySpawner : MonoBehaviour
             return -modifier;
         } else {
             return modifier;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other) {
+        if (LayerMask.LayerToName(other.gameObject.layer) == "player") {
+            playersOverlapping++;
+            if (playersOverlapping == 2) {
+                spawnerOn = true;
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other) {
+        if (LayerMask.LayerToName(other.gameObject.layer) == "player") {
+            playersOverlapping--;
         }
     }
 }
