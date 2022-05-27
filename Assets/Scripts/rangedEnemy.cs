@@ -7,6 +7,8 @@ public class rangedEnemy : Enemy
 {
 
     [SerializeField] GameObject projectile;
+    [SerializeField] GameObject hazardBlob;
+
     [SerializeField] Tilemap hazardTilemap;
     [SerializeField] TileBase spawnedTile;
     // Start is called before the first frame update
@@ -31,14 +33,18 @@ public class rangedEnemy : Enemy
         if (abilityCooldown > 0 || tooFar)
         {
             abilityCooldown--;
-        } else
+        }
+        else
         {
-            if (Random.Range(1, 10) == 1) {
+            if (Random.Range(1, 4) == 1)
+            {
                 // Attack functions are called through animation events (front facing)
                 animator.SetTrigger("isAttackingHazard");
                 // Increase ability cooldown so the animation trigger only occurs once
                 abilityCooldown = 100000;
-            } else {
+            }
+            else
+            {
                 // Attack functions are called through animation events (front facing)
                 animator.SetTrigger("isAttacking");
                 // Increase ability cooldown so the animation trigger only occurs once
@@ -48,14 +54,19 @@ public class rangedEnemy : Enemy
     }
 
     // All functions are called through animation event (front facing)
-    public void spawnProjectile() {
+    public void spawnProjectile()
+    {
         Instantiate(projectile, trfm.position, trfm.rotation);
     }
-    public void spawnHazard() {
-        hazardTilemap.SetTile(Vector3Int.FloorToInt(trfm.position), spawnedTile);
+    public void spawnHazard()
+    {
+        Instantiate(hazardBlob, trfm.position + Vector3.up / 2, Quaternion.identity).GetComponent<blobScript>().setParams(hazardTilemap, path.vectorPath[path.vectorPath.Count / 2]);
+
+        //hazardTilemap.SetTile(Vector3Int.FloorToInt(trfm.position), spawnedTile);
     }
     // Called at the end of the attack animation
-    public void resetAbilityCooldown() {
+    public void resetAbilityCooldown()
+    {
         abilityCooldown = Random.Range(100, 200);
     }
 }

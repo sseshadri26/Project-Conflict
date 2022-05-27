@@ -19,7 +19,7 @@ public class Enemy : MonoBehaviour
 
     protected const bool p1 = false, p2 = true;
     protected bool targetedPlayer = p1;
-    
+
     protected Rigidbody2D rb;
     protected Transform trfm;
 
@@ -38,7 +38,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] protected float inRangeOfPlayer = 1f;    // How far from player should enemy stop?
     [SerializeField] protected float maxChaseDistance = 15f;    // How far before enemy stops chasing player?
     private float nextWaypointDistance = .5f;
-    private Path path;
+    protected Path path;
     private int currentWaypoint = 0;
     private bool reachedEndOfPath = false;
     private Seeker seeker;
@@ -59,20 +59,23 @@ public class Enemy : MonoBehaviour
     }
 
     // Start calculating enemy's path to player
-    public void UpdatePath() {
-         //only run this code every other tick to save resources
+    public void UpdatePath()
+    {
+        //only run this code every other tick to save resources
         if (every2)
         {
             determineTargetPlayer();
-            if (targetPlayerTrfm != null && seeker.IsDone()) 
+            if (targetPlayerTrfm != null && seeker.IsDone())
                 seeker.StartPath(rb.position, targetPlayerTrfm.position, OnPathComplete);
         }
         every2 = !every2;
     }
 
     // Set enemy's path when done calculating
-    protected void OnPathComplete(Path p) {
-        if (!p.error) {
+    protected void OnPathComplete(Path p)
+    {
+        if (!p.error)
+        {
             path = p;
             currentWaypoint = 0;
         }
@@ -81,9 +84,12 @@ public class Enemy : MonoBehaviour
     protected void EnemyFixedUpdate()
     {
         isStill = true;
-        if (path == null || path.GetTotalLength() > maxChaseDistance) {
+        if (path == null || path.GetTotalLength() > maxChaseDistance)
+        {
             tooFar = true;
-        } else {
+        }
+        else
+        {
             tooFar = false;
         }
         UpdatePath();
@@ -91,27 +97,32 @@ public class Enemy : MonoBehaviour
         {
             idleRoam();
         }
-        if (stunTmr>0) { stunTmr--; }
+        if (stunTmr > 0) { stunTmr--; }
         doKnockback();
     }
 
-    void LateUpdate() {
+    void LateUpdate()
+    {
         // Update animator variables
         animator.SetBool("isMoving", !isStill);
         animator.SetFloat("forwardX", trfm.up.x);
         animator.SetFloat("forwardY", trfm.up.y);
     }
 
-    protected void moveToPlayer(float thisSpeed) {
+    protected void moveToPlayer(float thisSpeed)
+    {
         if (path == null || path.GetTotalLength() > maxChaseDistance)
             return;
-        
+
         // Reached player?
-        if(path.GetTotalLength() < inRangeOfPlayer || currentWaypoint >= path.vectorPath.Count) {
+        if (path.GetTotalLength() < inRangeOfPlayer || currentWaypoint >= path.vectorPath.Count)
+        {
             reachedEndOfPath = true;
             trfm.up = Vector2.Lerp(trfm.up, ((Vector2)(targetPlayerTrfm.position - trfm.position)).normalized, Time.deltaTime * rotationSpeed);
             return;
-        } else {
+        }
+        else
+        {
             reachedEndOfPath = false;
         }
 
@@ -121,7 +132,8 @@ public class Enemy : MonoBehaviour
         moveForward(thisSpeed);
         // Pick next waypoint
         float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
-        if (distance < nextWaypointDistance) {
+        if (distance < nextWaypointDistance)
+        {
             currentWaypoint++;
         }
     }
@@ -141,7 +153,8 @@ public class Enemy : MonoBehaviour
                         targetedPlayer = p1;
                     }
 
-                    if (coroutineRunning) {
+                    if (coroutineRunning)
+                    {
                         StopCoroutine(losePlayerTarget());
                         coroutineRunning = false;
                     }
@@ -149,7 +162,8 @@ public class Enemy : MonoBehaviour
                 if (Physics2D.Linecast(trfm.position, playerTwoTrfm.position, 1 << 6))
                 {
                     // Player out of sight
-                    if (!coroutineRunning) {
+                    if (!coroutineRunning)
+                    {
                         coroutineRunning = true;
                         StartCoroutine(losePlayerTarget());
                     }
@@ -165,23 +179,26 @@ public class Enemy : MonoBehaviour
                         targetPlayerTrfm = playerTwoTrfm;
                         targetedPlayer = p2;
 
-                    if (coroutineRunning) {
-                        StopCoroutine(losePlayerTarget());
-                        coroutineRunning = false;
-                    }
+                        if (coroutineRunning)
+                        {
+                            StopCoroutine(losePlayerTarget());
+                            coroutineRunning = false;
+                        }
                     }
                 }
                 if (Physics2D.Linecast(trfm.position, playerOneTrfm.position, 1 << 6))
                 {
                     // Player out of sight
-                    if (!coroutineRunning) {
+                    if (!coroutineRunning)
+                    {
                         coroutineRunning = true;
                         StartCoroutine(losePlayerTarget());
                     }
                 }
             }
 
-        } else
+        }
+        else
         {
             if (!Physics2D.Linecast(trfm.position, playerOneTrfm.position, 1 << 6))
             {
@@ -189,7 +206,8 @@ public class Enemy : MonoBehaviour
                 targetedPlayer = p1;
                 hasTargetPlayer = true;
 
-                if (coroutineRunning) {
+                if (coroutineRunning)
+                {
                     StopCoroutine(losePlayerTarget());
                     coroutineRunning = false;
                 }
@@ -200,7 +218,8 @@ public class Enemy : MonoBehaviour
                 targetedPlayer = p2;
                 hasTargetPlayer = true;
 
-                if (coroutineRunning) {
+                if (coroutineRunning)
+                {
                     StopCoroutine(losePlayerTarget());
                     coroutineRunning = false;
                 }
@@ -209,7 +228,8 @@ public class Enemy : MonoBehaviour
     }
 
     // Enemy forgets player after memoryTime seconds
-    IEnumerator losePlayerTarget() {
+    IEnumerator losePlayerTarget()
+    {
         yield return new WaitForSeconds(memoryTime);
         hasTargetPlayer = false;
         targetPlayerTrfm = null;
@@ -271,7 +291,7 @@ public class Enemy : MonoBehaviour
     {
         if (col.gameObject.tag == "fork")
         {
-            
+
         }
     }
 
@@ -336,7 +356,7 @@ public class Enemy : MonoBehaviour
 
     public bool stun(float duration)
     {
-        int ticks = Mathf.RoundToInt(duration*50);
+        int ticks = Mathf.RoundToInt(duration * 50);
         if (stunTmr < ticks)
         {
             stunTmr = ticks;

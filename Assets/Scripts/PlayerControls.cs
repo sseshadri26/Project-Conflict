@@ -168,6 +168,12 @@ public class PlayerControls : MonoBehaviour
             buttonDown = false;
         }
     }
+
+    public void OnFire2(InputAction.CallbackContext context)
+    {
+        ThrowFork();
+    }
+
     public void ThrowFork()
     {
         //Debug.Log("calling throw");

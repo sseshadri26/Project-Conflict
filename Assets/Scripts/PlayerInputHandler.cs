@@ -46,6 +46,11 @@ public class PlayerInputHandler : MonoBehaviour
         {
             OnAttack(obj);
         }
+
+        if (obj.action.name == controls.Player.Fire2.name)
+        {
+            OnAttack2(obj);
+        }
     }
 
     public void OnMove(CallbackContext context)
@@ -62,5 +67,10 @@ public class PlayerInputHandler : MonoBehaviour
     public void OnAttack(CallbackContext context)
     {
         if (playerControls != null) playerControls.OnFire(context);
+    }
+
+    public void OnAttack2(CallbackContext context)
+    {
+        if (playerControls != null) playerControls.OnFire2(context);
     }
 }
