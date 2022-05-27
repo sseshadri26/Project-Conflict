@@ -101,6 +101,7 @@ MonoBehaviour:
   rotationSpeed: 7
   targetPlayerTrfm: {fileID: 0}
   hasTargetPlayer: 0
+  abilityCast: 0
   stunAnimationRepetitions: 1
   inRangeOfPlayer: 7
   maxChaseDistance: 15
@@ -248,6 +249,7 @@ GameObject:
   - component: {fileID: 6255843819604314213}
   - component: {fileID: 8839532841046594663}
   - component: {fileID: 2635455055285626870}
+  - component: {fileID: 952726928704931684}
   m_Layer: 0
   m_Name: sprite
   m_TagString: Untagged
@@ -361,5 +363,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1e72c23f6f1ab44a4ad67b77ff1fc9a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &952726928704931684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5824088256983309304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63f3c2c7c6035414c99a65af93dcce99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

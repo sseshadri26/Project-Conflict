@@ -35,6 +35,7 @@ public class dashingEnemy : meleeEnemy
         }
         else
         {
+            // takeDamage(100);
             castAttack(200, 400, 1);
         }
     }

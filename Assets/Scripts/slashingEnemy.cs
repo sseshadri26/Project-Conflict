@@ -45,6 +45,7 @@ public class slashingEnemy : meleeEnemy
         {
             // Attack functions are called through animation events in front facing attack animation
             animator.SetTrigger("isAttacking");
+            // takeDamage(100);
             // temporarily increase ability cooldown to prevent animator from triggering twice
             abilityCooldown = 1000;
         }

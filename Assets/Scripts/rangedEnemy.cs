@@ -36,6 +36,7 @@ public class rangedEnemy : Enemy
         }
         else
         {
+            // takeDamage(100);
             if (Random.Range(1, 4) == 1)
             {
                 // Attack functions are called through animation events (front facing)
