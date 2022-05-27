@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3117435411823831331}
   - component: {fileID: -7275510275722742632}
   m_Layer: 0
-  m_Name: ketchupBlobSplat
+  m_Name: mustardBlobSplat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d6c66adc863cb3f40b6a358891a790ee, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2368909b4e8e1b746b792476d8345fc3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1793913056966864f9f549da00105e8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnedTile: {fileID: 11400000, guid: e89e0f5e4d0e7514bbf0282aa3fac725, type: 2}
+  SpawnedTile: {fileID: 11400000, guid: df7bbf0f77f4794489b3f06c36264cbf, type: 2}
 --- !u!95 &-7275510275722742632
 Animator:
   serializedVersion: 3
@@ -107,7 +107,7 @@ Animator:
   m_GameObject: {fileID: 1875503230918823877}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3896dfc9354f9d749bc6bc3cf930fa13, type: 2}
+  m_Controller: {fileID: 9100000, guid: c2a17772275acc641afdb60cc794b4bd, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

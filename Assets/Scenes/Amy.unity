@@ -34542,7 +34542,7 @@ PrefabInstance:
     - target: {fileID: 2178550086036042974, guid: 0f1ecc79aad65dd489ffcf6d48246f95, type: 3}
       propertyPath: hazardBlob
       value: 
-      objectReference: {fileID: 1875503230918823877, guid: 24a8846721db4e24ab1254412c30d01e, type: 3}
+      objectReference: {fileID: 1875503230918823877, guid: 4a384ce698e4f63459c866958d1a4fdb, type: 3}
     - target: {fileID: 2178550086036042974, guid: 0f1ecc79aad65dd489ffcf6d48246f95, type: 3}
       propertyPath: spawnedTile
       value: 
