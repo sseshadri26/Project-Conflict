@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Used Scenes/Menu.unity
+    guid: eb8adbff7e70b6844b83582de3571194
+  - enabled: 1
     path: Assets/Scenes/Used Scenes/PlayerSetup.unity
     guid: d49e6325e552b7746bd26da1aa5118b8
   - enabled: 0
@@ -17,8 +20,8 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
-  - enabled: 1
-    path: Assets/Scenes/Used Scenes/Victory Screen Orange.unity
+  - enabled: 0
+    path: Assets/Scenes/Used Scenes/Victory Screen OrangeFinal.unity
     guid: 0283240b5e983ba4d89b4d564a627e29
   - enabled: 1
     path: Assets/Scenes/Used Scenes/End Blue No.unity
@@ -35,10 +38,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Used Scenes/Tile Map.unity
     guid: 31aa598e135bd9d48862a235b23a793c
-  - enabled: 1
-    path: Assets/Scenes/Used Scenes/Menu.unity
-    guid: eb8adbff7e70b6844b83582de3571194
+  - enabled: 0
+    path: Assets/Scenes/Used Scenes/Victory Screen BlueFinal.unity
+    guid: 358e330bcc1f1ca4b8259070a688c276
   - enabled: 1
     path: Assets/Scenes/Used Scenes/Victory Screen Blue.unity
-    guid: 358e330bcc1f1ca4b8259070a688c276
+    guid: 35e26fea6e84d084ab36393b594baaec
+  - enabled: 1
+    path: Assets/Scenes/Used Scenes/Victory Screen Orange.unity
+    guid: bfb96f369f6ff28479ab1b5468ef6338
   m_configObjects: {}

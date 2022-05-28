@@ -38,7 +38,7 @@ public class EnemySpawner : MonoBehaviour
                 GameObject hamburg = Instantiate(enemyPrefabs[1], new Vector3(this.transform.position.x, this.transform.position.y)
                         , Quaternion.identity, transform);
                 hamburg.transform.localScale = new Vector3(3f, 3f, 1f);
-                hamburg.GetComponent<Enemy>().setHealth(5);
+                hamburg.GetComponent<Enemy>().setHealth(70);
             }
             else
             {

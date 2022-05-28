@@ -164,7 +164,8 @@ public class PlayerControls : MonoBehaviour
 
     public void OnFire2(InputAction.CallbackContext context)
     {
-        ThrowFork();
+        if (context.started)
+            ThrowFork();
     }
 
     public void ThrowFork()

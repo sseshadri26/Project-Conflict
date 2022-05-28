@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class weapon : MonoBehaviour
 {
+
+
     public bool Throw(bool p1)
     {
-        if (inFlight() || m_state == state.embedded) return false;
+        if (inFlight() || m_state == state.embedded || inWall) return false;
 
         trfm.parent = null;
+        //move back 1 units
+        trfm.position = trfm.position + trfm.up * -1.5f;
+        //gameObject.transform.
+
         if (p1) { m_state = state.threwP1; } else { m_state = state.threwP2; }
         throwBlurBack.SetActive(true);
         throwBlurFront.SetActive(true);
@@ -67,16 +73,29 @@ public class weapon : MonoBehaviour
     public Transform trfm;
     [SerializeField] float spd;
     [SerializeField] BoxCollider2D boxCol;
+    [SerializeField] BoxCollider2D wallCol;
+
     [SerializeField] SpriteRenderer thrustRend;
     [SerializeField] Color thrustCol;
     int pickUpDelay;
     public bool lastOwnerWasP1;
 
+    public bool inWall = false;
     //getter functions to determine which player threw the weapon last
 
 
     private void FixedUpdate()
     {
+
+        //if (wallCol.IsTouchingLayers())
+        //{
+        //    inWall = true;
+        //}
+        //else
+        //{
+        //    inWall = false;
+        //}
+
         if (m_state == state.threwP1)
         {
             lastOwnerWasP1 = true;
@@ -162,6 +181,9 @@ public class weapon : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
+        //is state is being held, return
+
+
         if (col.gameObject.layer == 6 && !inHand())
         {
             // layer 6 = walls
@@ -173,15 +195,17 @@ public class weapon : MonoBehaviour
             // layer 7 = player; this mistakenly triggers for the player that threw the fork too
             // also this doesn't address weaponEquipped in PlayerControls.cs
             Debug.Log("hit another player");
-            if (m_state == state.threwP1 && col.gameObject.transform.root.gameObject.name.Contains("2"))
+            Debug.Log("Threw p1: " + (m_state == state.threwP1) + " Threw p2: " + (m_state == state.threwP2) + "Name: " + col.gameObject.name);
+            if (m_state == state.threwP1 && col.gameObject.name.Contains("2"))
             {
                 embed();
             }
-            else if (m_state == state.threwP2 && col.gameObject.transform.root.gameObject.name.Contains("1"))
+            else if (m_state == state.threwP2 && col.gameObject.name.Contains("1"))
             {
                 embed();
             }
             //PickUp(col.gameObject.GetComponent<PlayerControls>());
         }
     }
+
 }

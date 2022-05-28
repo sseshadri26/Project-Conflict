@@ -354,7 +354,7 @@ public class Enemy : MonoBehaviour
 
     public int takeDamage(int amount, GameObject col)
     {
-        Debug.Log(amount);
+        //Debug.Log(amount);
         health -= amount;
         if (health < 1)
         {
@@ -408,7 +408,7 @@ public class Enemy : MonoBehaviour
 
     public void takeDamageFromSource(GameObject col)
     {
-        Debug.Log(col.name);
+        //Debug.Log(col.name);
 
         //tinyspinattack
         if (col.name.Contains("tinySpinSttackObj"))
